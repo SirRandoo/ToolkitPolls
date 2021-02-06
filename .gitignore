@@ -1,0 +1,10 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.idea/.idea.ToolkitPolls/.idea/
+/ToolkitPolls.sln.DotSettings.user
+/ToolkitPolls.sln.DotSettings
+/1.2/Assemblies/
+/Source/ToolkitPolls.csproj.DotSettings

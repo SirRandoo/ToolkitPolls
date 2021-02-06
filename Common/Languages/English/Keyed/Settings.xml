@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <ToolkitPolls.SettingGroups.General>General</ToolkitPolls.SettingGroups.General>
+    <ToolkitPolls.Settings.MaxChoices.Label>Maxmimum number of choices</ToolkitPolls.Settings.MaxChoices.Label>
+    <ToolkitPolls.Settings.MaxChoices.Description>The maximum number of choices a poll can have at any given point. While this setting affects most polls, addons can explicitly exceed this limit.</ToolkitPolls.Settings.MaxChoices.Description>
+    
+    <ToolkitPolls.Settings.Duration.Label>Duration</ToolkitPolls.Settings.Duration.Label>
+    <ToolkitPolls.Settings.Duration.Description>The maximum number of seconds a poll will run for. While there is no limit to the amount of seconds you can put in this field, it's advised to keep it within reason.</ToolkitPolls.Settings.Duration.Description>
+    
+    <ToolkitPolls.Settings.Colorless.Label>Colorful polls</ToolkitPolls.Settings.Colorless.Label>
+    <ToolkitPolls.Settings.Colorless.Description>Whether or not the poll dialogs will use colors. Currently, this setting disables colored titles, colored poll bars, and the rainbow timer bar.</ToolkitPolls.Settings.Colorless.Description>
+    
+    <ToolkitPolls.Settings.PollBars.Label>Draw poll bars</ToolkitPolls.Settings.PollBars.Label>
+    <ToolkitPolls.Settings.PollBars.Description>Whether or not the poll dialog will draw a bar behind choices to indicate their vote count relative to the poll's total vote count.</ToolkitPolls.Settings.PollBars.Description>
+    
+    
+    <ToolkitPolls.SettingGroups.VoteWeights.Label>Vote weights</ToolkitPolls.SettingGroups.VoteWeights.Label>
+    <ToolkitPolls.SettingGroups.VoteWeights.Description>Below are the settings that dictate a viewer's voting power. All these values are additive with one another, which means a vip with an active subscription will have more votes than a vip.</ToolkitPolls.SettingGroups.VoteWeights.Description>
+    <ToolkitPolls.Settings.SubscriberWeight>Subscriber weight</ToolkitPolls.Settings.SubscriberWeight>
+    <ToolkitPolls.Settings.VipWeight>Vip weight</ToolkitPolls.Settings.VipWeight>
+    <ToolkitPolls.Settings.FounderWeight>Founder weight</ToolkitPolls.Settings.FounderWeight>
+    <ToolkitPolls.Settings.ModeratorWeight>Moderator weight</ToolkitPolls.Settings.ModeratorWeight>
+</LanguageData>
