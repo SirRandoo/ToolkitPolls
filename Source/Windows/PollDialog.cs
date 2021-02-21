@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Linq;
 using SirRandoo.ToolkitPolls.Helpers;
 using UnityEngine;
 using Verse;
@@ -98,13 +99,17 @@ namespace SirRandoo.ToolkitPolls.Windows
 
         protected override void SetInitialSizeAndPosition()
         {
+            Text.Font = PollSettings.LargeText ? GameFont.Medium : GameFont.Small;
+            
             Vector2 initialSize = InitialSize;
             windowRect = new Rect(
                 Mathf.Clamp(PollSettings.PollDialogX, 0f, UI.screenWidth - initialSize.x),
                 Mathf.Clamp(PollSettings.PollDialogY, 0f, UI.screenHeight - initialSize.y),
-                initialSize.x,
-                initialSize.y + Text.SmallFontHeight * (_coordinator?.CurrentPoll?.Choices?.Count ?? 0f)
+                initialSize.x + (_coordinator?.CurrentPoll?.Choices?.Sum(c => Text.CalcSize(c.Label).x) ?? 0f),
+                initialSize.y + Text.LineHeight * (_coordinator?.CurrentPoll?.Choices?.Count ?? 0f)
             );
+
+            Text.Font = GameFont.Small;
         }
 
         public override void WindowUpdate()

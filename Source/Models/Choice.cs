@@ -46,10 +46,9 @@ namespace SirRandoo.ToolkitPolls.Models
             {
                 _label = value;
 
-                GameFont cache = Text.Font;
-                Text.Font = GameFont.Small;
+                Text.Font = PollSettings.LargeText ? GameFont.Medium : GameFont.Small;
                 _labelWidth = Text.CalcSize(_label).x;
-                Text.Font = cache;
+                Text.Font = GameFont.Small;
             }
         }
 

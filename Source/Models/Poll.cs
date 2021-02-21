@@ -61,13 +61,13 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public void Draw(Rect canvas)
         {
-            var listing = new Listing_Standard();
+            var listing = new Listing_Standard(PollSettings.LargeText ? GameFont.Medium : GameFont.Small);
 
             listing.Begin(canvas);
 
             foreach (IChoice choice in Choices)
             {
-                Rect lineRect = listing.GetRect(Text.SmallFontHeight);
+                Rect lineRect = listing.GetRect(Text.LineHeight);
 
                 if (PollSettings.PollBars)
                 {
@@ -78,6 +78,7 @@ namespace SirRandoo.ToolkitPolls.Models
             }
 
             listing.End();
+            Text.Font = GameFont.Small;
         }
 
         public void Conclude()

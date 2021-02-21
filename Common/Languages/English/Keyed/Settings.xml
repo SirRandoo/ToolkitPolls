@@ -14,6 +14,9 @@
     <ToolkitPolls.Settings.PollBars.Label>Draw poll bars</ToolkitPolls.Settings.PollBars.Label>
     <ToolkitPolls.Settings.PollBars.Description>Whether or not the poll dialog will draw a bar behind choices to indicate their vote count relative to the poll's total vote count.</ToolkitPolls.Settings.PollBars.Description>
     
+    <ToolkitPolls.Settings.LargeText.Label>Large text</ToolkitPolls.Settings.LargeText.Label>
+    <ToolkitPolls.Settings.LargeText.Description>Whether or not the poll dialogs will use a larger font.</ToolkitPolls.Settings.LargeText.Description>
+    
     
     <ToolkitPolls.SettingGroups.VoteWeights.Label>Vote weights</ToolkitPolls.SettingGroups.VoteWeights.Label>
     <ToolkitPolls.SettingGroups.VoteWeights.Description>Below are the settings that dictate a viewer's voting power. All these values are additive with one another, which means a vip with an active subscription will have more votes than a vip.</ToolkitPolls.SettingGroups.VoteWeights.Description>

@@ -35,6 +35,7 @@ namespace SirRandoo.ToolkitPolls
         public static int Duration = 300;
         public static bool PollBars = true;
         public static bool TieredVotes = true;
+        public static bool LargeText = false;
 
         public static int SubscriberWeight = 1;
         public static int VipWeight = 1;
@@ -74,6 +75,9 @@ namespace SirRandoo.ToolkitPolls
 
             listing.CheckboxLabeled("ToolkitPolls.Settings.PollBars.Label".TranslateSimple(), ref PollBars);
             listing.DrawDescription("ToolkitPolls.Settings.PollBars.Description".TranslateSimple());
+            
+            listing.CheckboxLabeled("ToolkitPolls.Settings.LargeText.Label".TranslateSimple(), ref LargeText);
+            listing.DrawDescription("ToolkitPolls.Settings.LargeText.Description".TranslateSimple());
 
 
             listing.DrawGroupHeader("ToolkitPolls.SettingGroups.VoteWeights.Label".TranslateSimple());
