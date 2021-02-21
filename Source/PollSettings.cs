@@ -34,6 +34,7 @@ namespace SirRandoo.ToolkitPolls
         public static int MaxChoices = 4;
         public static int Duration = 300;
         public static bool PollBars = true;
+        public static bool TieredVotes = true;
 
         public static int SubscriberWeight = 1;
         public static int VipWeight = 1;
@@ -95,6 +96,9 @@ namespace SirRandoo.ToolkitPolls
             SettingsHelper.DrawLabel(moderatorLabel, "ToolkitPolls.Settings.ModeratorWeight".TranslateSimple());
             Widgets.TextFieldNumeric(moderatorField, ref ModeratorWeight, ref _moderatorWeightBuffer, 1f);
 
+            listing.CheckboxLabeled("ToolkitPolls.Settings.TieredVotes.Label".TranslateSimple(), ref TieredVotes);
+            listing.DrawDescription("ToolkitPolls.Settings.TieredVotes.Description".TranslateSimple());
+
             listing.EndScrollView(ref viewPort);
         }
 
@@ -104,6 +108,7 @@ namespace SirRandoo.ToolkitPolls
             Scribe_Values.Look(ref MaxChoices, "choices", 4);
             Scribe_Values.Look(ref Duration, "duration", 300);
             Scribe_Values.Look(ref PollBars, "bars", true);
+            Scribe_Values.Look(ref TieredVotes, "tieredVotes", true);
 
             Scribe_Values.Look(ref SubscriberWeight, "subscriberWeight", 1);
             Scribe_Values.Look(ref VipWeight, "vipWeight", 1);

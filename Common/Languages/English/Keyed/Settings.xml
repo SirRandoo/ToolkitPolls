@@ -21,4 +21,6 @@
     <ToolkitPolls.Settings.VipWeight>Vip weight</ToolkitPolls.Settings.VipWeight>
     <ToolkitPolls.Settings.FounderWeight>Founder weight</ToolkitPolls.Settings.FounderWeight>
     <ToolkitPolls.Settings.ModeratorWeight>Moderator weight</ToolkitPolls.Settings.ModeratorWeight>
+    <ToolkitPolls.Settings.TieredVotes.Label>Tiered voting weights</ToolkitPolls.Settings.TieredVotes.Label>
+    <ToolkitPolls.Settings.TieredVotes.Description>This setting is responsible for adjusting how a viewer's vote weight is calculated. When enabled, a viewer's weight will be determined by their tier in chat, instead of being a culmination of their tiers. The hierarchy of the mod's tiers are as follows: default &gt; subscriber &gt; founder &gt; vip &gt; moderator</ToolkitPolls.Settings.TieredVotes.Description>
 </LanguageData>

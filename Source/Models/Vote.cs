@@ -34,6 +34,11 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public int GetTotalVotes()
         {
+            return PollSettings.TieredVotes ? GetTotalVotesTiered() : GetTotalVotesAdditive();
+        }
+
+        private int GetTotalVotesAdditive()
+        {
             if (UserTypes == UserType.None)
             {
                 return 1;
@@ -61,6 +66,26 @@ namespace SirRandoo.ToolkitPolls.Models
             }
 
             return count;
+        }
+
+        public int GetTotalVotesTiered()
+        {
+            if (UserTypes.HasFlag(UserType.Moderator))
+            {
+                return PollSettings.ModeratorWeight;
+            }
+
+            if (UserTypes.HasFlag(UserType.Vip))
+            {
+                return PollSettings.VipWeight;
+            }
+
+            if (UserTypes.HasFlag(UserType.Founder))
+            {
+                return PollSettings.FounderWeight;
+            }
+
+            return UserTypes.HasFlag(UserType.Subscriber) ? PollSettings.SubscriberWeight : 1;
         }
     }
 }
