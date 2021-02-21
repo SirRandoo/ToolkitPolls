@@ -91,12 +91,6 @@ namespace SirRandoo.ToolkitPolls
 
         public override void GameComponentTick()
         {
-            if (CurrentPoll != null)
-            {
-                ProcessCurrentPoll();
-                return;
-            }
-
             if (_pendingPolls.IsEmpty || !_pendingPolls.TryDequeue(out IPoll poll) || LegacyHelper.HasActivePoll())
             {
                 return;
@@ -105,6 +99,14 @@ namespace SirRandoo.ToolkitPolls
             poll.Timer = PollSettings.Duration;
             CurrentPoll = poll;
             _marker = Time.unscaledTime;
+        }
+
+        public override void GameComponentOnGUI()
+        {
+            if (CurrentPoll != null)
+            {
+                ProcessCurrentPoll();
+            }
         }
 
         private void ProcessCurrentPoll()
