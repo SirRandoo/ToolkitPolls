@@ -128,6 +128,16 @@ namespace SirRandoo.ToolkitPolls.Windows
             PersistWindowPosition();
         }
 
+        public override void PostClose()
+        {
+            base.PostClose();
+
+            if (_coordinator.CurrentPoll != null)
+            {
+                _coordinator.CurrentPoll.Timer -= PollSettings.Duration;
+            }
+        }
+
         private void PersistWindowPosition()
         {
             if (Math.Abs(windowRect.x - PollSettings.PollDialogX) < 0.1f
