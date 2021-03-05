@@ -128,7 +128,7 @@ namespace SirRandoo.ToolkitPolls.Models
             }
 
             GameFont prevFont = Text.Font;
-            Text.Font = GameFont.Small;
+            Text.Font = PollSettings.LargeText ? GameFont.Medium : GameFont.Small;
             WidthCache[votes] = cache = Text.CalcSize(votes.ToString("N0")).x;
             Text.Font = prevFont;
 
