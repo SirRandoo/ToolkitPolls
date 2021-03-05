@@ -22,6 +22,7 @@
 
 using System;
 using SirRandoo.ToolkitPolls.Helpers;
+using SirRandoo.ToolkitPolls.Models;
 using SirRandoo.ToolkitPolls.Windows;
 using UnityEngine;
 using Verse;
@@ -75,9 +76,16 @@ namespace SirRandoo.ToolkitPolls
 
             listing.CheckboxLabeled("ToolkitPolls.Settings.PollBars.Label".TranslateSimple(), ref PollBars);
             listing.DrawDescription("ToolkitPolls.Settings.PollBars.Description".TranslateSimple());
-            
-            listing.CheckboxLabeled("ToolkitPolls.Settings.LargeText.Label".TranslateSimple(), ref LargeText);
+
+            bool proxy = LargeText;
+            listing.CheckboxLabeled("ToolkitPolls.Settings.LargeText.Label".TranslateSimple(), ref proxy);
             listing.DrawDescription("ToolkitPolls.Settings.LargeText.Description".TranslateSimple());
+
+            if (proxy != LargeText)
+            {
+                LargeText = proxy;
+                Choice.NotifyScaleChanged();
+            }
 
 
             listing.DrawGroupHeader("ToolkitPolls.SettingGroups.VoteWeights.Label".TranslateSimple());
