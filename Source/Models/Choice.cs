@@ -33,7 +33,7 @@ namespace SirRandoo.ToolkitPolls.Models
     public class Choice : IChoice
     {
         private static readonly Dictionary<int, float> WidthCache = new Dictionary<int, float>();
-        private static bool scaleChanged;
+        private static bool _scaleChanged;
         private float _displayPercentage;
         private string _label;
         private float _labelWidth;
@@ -124,15 +124,15 @@ namespace SirRandoo.ToolkitPolls.Models
 
         private static float GetWidth(int votes)
         {
-            if (!scaleChanged && WidthCache.TryGetValue(votes, out float cache))
+            if (!_scaleChanged && WidthCache.TryGetValue(votes, out float cache))
             {
                 return cache;
             }
 
-            if (scaleChanged)
+            if (_scaleChanged)
             {
                 WidthCache.Clear();
-                scaleChanged = false;
+                _scaleChanged = false;
             }
 
             GameFont prevFont = Text.Font;
@@ -145,7 +145,7 @@ namespace SirRandoo.ToolkitPolls.Models
 
         internal static void NotifyScaleChanged()
         {
-            scaleChanged = true;
+            _scaleChanged = true;
         }
     }
 }
