@@ -110,6 +110,7 @@ namespace SirRandoo.ToolkitPolls.Models
         {
             Votes.RemoveAll(v => v.Viewer.EqualsIgnoreCase(viewer));
             _totalVotes = Votes.Sum(v => v.GetTotalVotes());
+            UpdateVoteCache();
         }
 
         private void UpdateVoteCache()
