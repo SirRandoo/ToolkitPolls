@@ -61,7 +61,7 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public void Draw(Rect canvas)
         {
-            var listing = new Listing_Standard(PollSettings.LargeText ? GameFont.Medium : GameFont.Small);
+            var listing = new Listing_Standard(PollSettings.GetTextScale());
 
             listing.Begin(canvas);
 

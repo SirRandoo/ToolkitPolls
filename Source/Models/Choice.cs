@@ -48,7 +48,7 @@ namespace SirRandoo.ToolkitPolls.Models
             {
                 _label = value;
 
-                Text.Font = PollSettings.LargeText ? GameFont.Medium : GameFont.Small;
+                Text.Font = PollSettings.GetTextScale();
                 _labelWidth = Text.CalcSize(_label).x;
                 Text.Font = GameFont.Small;
             }
@@ -67,9 +67,10 @@ namespace SirRandoo.ToolkitPolls.Models
                 _totalVotesWidth,
                 canvas.height
             );
+            GameFont scale = PollSettings.GetTextScale();
 
-            SettingsHelper.DrawLabel(labelRect, _label);
-            SettingsHelper.DrawLabel(voterRect, _totalVotesLabel);
+            SettingsHelper.DrawLabel(labelRect, _label, fontScale: scale);
+            SettingsHelper.DrawLabel(voterRect, _totalVotesLabel, fontScale: scale);
         }
 
         public void DrawBar(Rect canvas, float percentage)
@@ -135,7 +136,7 @@ namespace SirRandoo.ToolkitPolls.Models
             }
 
             GameFont prevFont = Text.Font;
-            Text.Font = PollSettings.LargeText ? GameFont.Medium : GameFont.Small;
+            Text.Font = PollSettings.GetTextScale();
             WidthCache[votes] = cache = Text.CalcSize(votes.ToString("N0")).x;
             Text.Font = prevFont;
 

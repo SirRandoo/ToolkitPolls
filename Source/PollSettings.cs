@@ -130,5 +130,10 @@ namespace SirRandoo.ToolkitPolls
             Scribe_Values.Look(ref PollDialogX, "xPosition", Mathf.Floor(UI.screenWidth - PollDialog.Width));
             Scribe_Values.Look(ref PollDialogY, "yPosition", Mathf.Floor(UI.screenHeight / 3f));
         }
+
+        internal static GameFont GetTextScale()
+        {
+            return PollSettings.LargeText ? GameFont.Medium : GameFont.Small;
+        }
     }
 }
