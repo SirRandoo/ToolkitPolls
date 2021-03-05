@@ -32,6 +32,7 @@ namespace SirRandoo.ToolkitPolls.Models
 {
     public class Choice : IChoice
     {
+        private static readonly Dictionary<int, float> WidthCache = new Dictionary<int, float>();
         private float _displayPercentage;
         private string _label;
         private float _labelWidth;
@@ -115,11 +116,22 @@ namespace SirRandoo.ToolkitPolls.Models
         {
             _totalVotes = Votes.Sum(v => v.GetTotalVotes());
             _totalVotesLabel = _totalVotes.ToString("N0");
+            _totalVotesWidth = GetWidth(_totalVotes);
+        }
 
-            GameFont cache = Text.Font;
+        private static float GetWidth(int votes)
+        {
+            if (WidthCache.TryGetValue(votes, out float cache))
+            {
+                return cache;
+            }
+
+            GameFont prevFont = Text.Font;
             Text.Font = GameFont.Small;
-            _totalVotesWidth = Text.CalcSize(_totalVotesLabel).x;
-            Text.Font = cache;
+            WidthCache[votes] = cache = Text.CalcSize(votes.ToString("N0")).x;
+            Text.Font = prevFont;
+
+            return cache;
         }
     }
 }
