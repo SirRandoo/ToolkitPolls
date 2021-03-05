@@ -99,6 +99,7 @@ namespace SirRandoo.ToolkitPolls.Windows
 
         protected override void SetInitialSizeAndPosition()
         {
+            GameFont lastFont = Text.Font;
             Text.Font = PollSettings.GetTextScale();
             
             Vector2 initialSize = InitialSize;
@@ -109,7 +110,7 @@ namespace SirRandoo.ToolkitPolls.Windows
                 initialSize.y + Text.LineHeight * (_coordinator?.CurrentPoll?.Choices?.Count ?? 0f)
             );
 
-            Text.Font = GameFont.Small;
+            Text.Font = lastFont;
         }
 
         public override void WindowUpdate()
