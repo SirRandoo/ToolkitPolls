@@ -93,15 +93,15 @@ namespace SirRandoo.ToolkitPolls
             listing.Gap(8f);
 
             (Rect subscriberLabel, Rect subscriberField) = listing.GetForm();
-            SettingsHelper.DrawLabel(subscriberLabel, "ToolkitPolls.Settings.SubscriberWeight.Label".TranslateSimple());
+            SettingsHelper.DrawLabel(subscriberLabel, "ToolkitPolls.Settings.SubscriberWeight".TranslateSimple());
             Widgets.TextFieldNumeric(subscriberField, ref SubscriberWeight, ref _subscriberWeightBuffer, 1f);
 
             (Rect vipLabel, Rect vipField) = listing.GetForm();
-            SettingsHelper.DrawLabel(vipLabel, "ToolkitPolls.Settings.VipWeight.Label".TranslateSimple());
+            SettingsHelper.DrawLabel(vipLabel, "ToolkitPolls.Settings.VipWeight".TranslateSimple());
             Widgets.TextFieldNumeric(vipField, ref VipWeight, ref _vipWeightBuffer, 1f);
 
             (Rect founderLabel, Rect founderField) = listing.GetForm();
-            SettingsHelper.DrawLabel(founderLabel, "ToolkitPolls.Settings.FounderWeight.Label".TranslateSimple());
+            SettingsHelper.DrawLabel(founderLabel, "ToolkitPolls.Settings.FounderWeight".TranslateSimple());
             Widgets.TextFieldNumeric(founderField, ref FounderWeight, ref _founderWeightBuffer, 1f);
 
             (Rect moderatorLabel, Rect moderatorField) = listing.GetForm();
