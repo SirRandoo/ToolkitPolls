@@ -3,6 +3,6 @@
     <ToolkitCore.Models.ToolkitAddon>
         <defName>ToolkitPolls</defName>
         <label>ToolkitPolls</label>
-        <menuClass>SirRandoo.ToolkitPolls.PollMenu</menuClass>
+        <menuClass>SirRandoo.ToolkitPolls.PollAddonMenu</menuClass>
     </ToolkitCore.Models.ToolkitAddon>
 </Defs>
