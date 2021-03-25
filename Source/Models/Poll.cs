@@ -22,6 +22,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using SirRandoo.ToolkitPolls.Helpers;
 using SirRandoo.ToolkitPolls.Interfaces;
 using UnityEngine;
 using Verse;
@@ -61,20 +62,30 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public void Draw(Rect canvas)
         {
-            var listing = new Listing_Standard(PollSettings.GetTextScale());
+            GameFont font = PollSettings.GetTextScale();
+            var listing = new Listing_Standard(font);
 
             listing.Begin(canvas);
 
-            foreach (IChoice choice in Choices)
+            for (var index = 0; index < Choices.Count; index++)
             {
+                IChoice choice = Choices[index];
                 Rect lineRect = listing.GetRect(Text.LineHeight);
+                var numRect = new Rect(lineRect.x, lineRect.y, font == GameFont.Medium ? 30f : 25f, lineRect.height);
+                var choiceRect = new Rect(
+                    numRect.x + numRect.width + 2f,
+                    lineRect.y,
+                    lineRect.width - numRect.width - 2f,
+                    lineRect.height
+                );
 
                 if (PollSettings.PollBars)
                 {
                     choice.DrawBar(lineRect, choice.Votes.Count / _allVotes);
                 }
 
-                choice.Draw(lineRect);
+                SettingsHelper.DrawLabel(numRect, $"[{index + 1f}]", TextAnchor.MiddleCenter, font);
+                choice.Draw(choiceRect);
             }
 
             listing.End();
