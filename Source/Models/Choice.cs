@@ -56,7 +56,7 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public Action OnChosen { get; set; }
 
-        public List<Vote> Votes { get; set; }
+        public List<Vote> Votes { get; set; } = new List<Vote>();
 
         public void Draw(Rect canvas)
         {
