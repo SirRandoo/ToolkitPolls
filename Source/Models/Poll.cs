@@ -47,7 +47,7 @@ namespace SirRandoo.ToolkitPolls.Models
                 return;
             }
 
-            IChoice choice = Choices[vote.Choice];
+            IChoice choice = Choices[vote.Choice - 1];
 
             foreach (IChoice c in Choices.Where(
                 c => Enumerable.Any(c.Votes, v => v.Viewer.EqualsIgnoreCase(vote.Viewer))
@@ -97,7 +97,7 @@ namespace SirRandoo.ToolkitPolls.Models
             int maxVotes = Choices.Max(c => c.Votes.Sum(v => v.GetTotalVotes()));
             IChoice winner = Choices.Where(c => c.Votes.Sum(v => v.GetTotalVotes()) == maxVotes).RandomElement();
 
-            winner?.OnChosen();
+            winner?.OnChosen?.Invoke();
         }
     }
 }
