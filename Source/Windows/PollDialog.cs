@@ -73,6 +73,8 @@ namespace SirRandoo.ToolkitPolls.Windows
             optionalTitle = _coordinator.CurrentPoll.TitleColor.NullOrEmpty() || PollSettings.Colorless
                 ? _coordinator.CurrentPoll?.Title
                 : _coordinator.CurrentPoll?.Title.ColorTagged(_coordinator.CurrentPoll.TitleColor);
+
+            SetInitialSizeAndPosition();
         }
 
         public override void DoWindowContents(Rect canvas)
@@ -106,7 +108,7 @@ namespace SirRandoo.ToolkitPolls.Windows
             windowRect = new Rect(
                 Mathf.Clamp(PollSettings.PollDialogX, 0f, UI.screenWidth - initialSize.x),
                 Mathf.Clamp(PollSettings.PollDialogY, 0f, UI.screenHeight - initialSize.y),
-                initialSize.x + (_coordinator?.CurrentPoll?.Choices?.Sum(c => Text.CalcSize(c.Label).x) ?? 0f),
+                initialSize.x + (_coordinator?.CurrentPoll?.Choices?.Max(c => Text.CalcSize(c.Label).x) ?? 0f),
                 initialSize.y + Text.LineHeight * (_coordinator?.CurrentPoll?.Choices?.Count ?? 0f)
             );
 
