@@ -36,7 +36,7 @@ namespace SirRandoo.ToolkitPolls
         public static int Duration = 300;
         public static bool PollBars = true;
         public static bool TieredVotes = true;
-        public static bool LargeText = false;
+        public static bool LargeText;
 
         public static int SubscriberWeight = 1;
         public static int VipWeight = 1;
@@ -133,7 +133,7 @@ namespace SirRandoo.ToolkitPolls
 
         internal static GameFont GetTextScale()
         {
-            return PollSettings.LargeText ? GameFont.Medium : GameFont.Small;
+            return LargeText ? GameFont.Medium : GameFont.Small;
         }
     }
 }
