@@ -37,6 +37,18 @@ namespace SirRandoo.ToolkitPolls.Windows
 
         private Coordinator _coordinator;
 
+        public PollDialog()
+        {
+            doCloseX = true;
+            draggable = true;
+            closeOnCancel = false;
+            closeOnAccept = false;
+            focusWhenOpened = false;
+            closeOnClickedOutside = false;
+            absorbInputAroundWindow = false;
+            preventCameraMotion = false;
+        }
+
         static PollDialog()
         {
             TimerGradient = new Gradient();
