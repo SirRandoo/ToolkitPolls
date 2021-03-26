@@ -75,13 +75,9 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public void DrawBar(Rect canvas, float percentage)
         {
-            if (Mathf.Abs(percentage - _displayPercentage) >= 0.01f)
+            if (Mathf.Abs(percentage - _displayPercentage) >= 0.0001f)
             {
-                _displayPercentage = Mathf.SmoothStep(
-                    Mathf.Min(percentage, _displayPercentage),
-                    Mathf.Max(percentage, _displayPercentage),
-                    0.2f
-                );
+                _displayPercentage = Mathf.SmoothStep(_displayPercentage, percentage, 0.2f);
             }
 
             var region = new Rect(
