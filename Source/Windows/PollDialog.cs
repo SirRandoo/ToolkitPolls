@@ -117,11 +117,14 @@ namespace SirRandoo.ToolkitPolls.Windows
             Text.Font = PollSettings.GetTextScale();
             
             Vector2 initialSize = InitialSize;
+            float desiredWidth = _coordinator?.CurrentPoll?.Choices?.Max(c => Text.CalcSize(c.Label).x) ?? 0f;
+            float finalWidth = Mathf.Max(initialSize.x, desiredWidth);
+            float finalHeight = initialSize.y + Text.LineHeight * (_coordinator?.CurrentPoll?.Choices?.Count ?? 0f);
             windowRect = new Rect(
-                Mathf.Clamp(PollSettings.PollDialogX, 0f, UI.screenWidth - initialSize.x),
-                Mathf.Clamp(PollSettings.PollDialogY, 0f, UI.screenHeight - initialSize.y),
-                initialSize.x + (_coordinator?.CurrentPoll?.Choices?.Max(c => Text.CalcSize(c.Label).x) ?? 0f),
-                initialSize.y + Text.LineHeight * (_coordinator?.CurrentPoll?.Choices?.Count ?? 0f)
+                Mathf.Clamp(PollSettings.PollDialogX, 0f, UI.screenWidth - finalWidth),
+                Mathf.Clamp(PollSettings.PollDialogY, 0f, UI.screenHeight - finalHeight),
+                Mathf.Max(initialSize.x, desiredWidth),
+                finalHeight
             );
 
             Text.Font = lastFont;
