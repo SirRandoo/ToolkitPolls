@@ -146,6 +146,7 @@ namespace SirRandoo.ToolkitPolls
                 CurrentPoll.Conclude();
                 CurrentPoll = null;
                 _votes.Clear();
+                Find.WindowStack.TryRemove(typeof(PollDialog), false);
                 return;
             }
 
