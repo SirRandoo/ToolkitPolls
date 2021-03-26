@@ -8,7 +8,7 @@
     <ToolkitPolls.Settings.Duration.Label>Duration</ToolkitPolls.Settings.Duration.Label>
     <ToolkitPolls.Settings.Duration.Description>The maximum number of seconds a poll will run for. While there is no limit to the amount of seconds you can put in this field, it's advised to keep it within reason.</ToolkitPolls.Settings.Duration.Description>
     
-    <ToolkitPolls.Settings.Colorless.Label>Colorful polls</ToolkitPolls.Settings.Colorless.Label>
+    <ToolkitPolls.Settings.Colorless.Label>Colorless polls</ToolkitPolls.Settings.Colorless.Label>
     <ToolkitPolls.Settings.Colorless.Description>Whether or not the poll dialogs will use colors. Currently, this setting disables colored titles, colored poll bars, and the rainbow timer bar.</ToolkitPolls.Settings.Colorless.Description>
     
     <ToolkitPolls.Settings.PollBars.Label>Draw poll bars</ToolkitPolls.Settings.PollBars.Label>
