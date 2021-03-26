@@ -97,16 +97,20 @@ namespace SirRandoo.ToolkitPolls.Windows
             }
 
             var pollRect = new Rect(0f, 0f, canvas.width, canvas.height - Text.SmallFontHeight);
-            var timerRect = new Rect(0f, canvas.y - Text.SmallFontHeight, canvas.width, Text.SmallFontHeight);
+            var timerRect = new Rect(0f, canvas.height - Text.SmallFontHeight, canvas.width, Text.SmallFontHeight);
 
             GUI.BeginGroup(canvas);
-            _coordinator.CurrentPoll?.Draw(pollRect);
 
+            GUI.BeginGroup(pollRect);
+            _coordinator.CurrentPoll?.Draw(pollRect.AtZero());
+            GUI.EndGroup();
 
+            GUI.BeginGroup(timerRect);
             float progress = (_coordinator.CurrentPoll?.Timer ?? 0f) / PollSettings.Duration;
-            GUI.color = TimerGradient.Evaluate(1f - progress);
-            Widgets.FillableBar(timerRect, progress, Texture2D.whiteTexture, null, true);
+            GUI.color = PollSettings.Colorless ? ColorLibrary.Teal : TimerGradient.Evaluate(1f - progress);
+            Widgets.FillableBar(timerRect.AtZero(), progress, Texture2D.whiteTexture, null, true);
             GUI.color = Color.white;
+            GUI.EndGroup();
 
             GUI.EndGroup();
         }
