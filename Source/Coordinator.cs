@@ -22,8 +22,8 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using SirRandoo.ToolkitPolls.Helpers;
 using SirRandoo.ToolkitPolls.Interfaces;
@@ -103,6 +103,28 @@ namespace SirRandoo.ToolkitPolls
 
         public override void GameComponentOnGUI()
         {
+            if (LegacyHelper.HasActivePoll())
+            {
+                var container = new List<IPoll>();
+
+                while (!_pendingPolls.IsEmpty)
+                {
+                    if (_pendingPolls.TryDequeue(out IPoll poll))
+                    {
+                        container.Add(poll);
+                    }
+                }
+
+                container.Insert(0, CurrentPoll);
+                CurrentPoll = null;
+                Find.WindowStack.TryRemove(typeof(PollDialog), false);
+
+                foreach (IPoll poll in container)
+                {
+                    _pendingPolls.Enqueue(poll);
+                }
+            }
+
             if (CurrentPoll != null)
             {
                 ProcessCurrentPoll();
