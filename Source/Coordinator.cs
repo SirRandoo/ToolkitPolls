@@ -99,6 +99,11 @@ namespace SirRandoo.ToolkitPolls
             poll.Timer = PollSettings.Duration;
             CurrentPoll = poll;
             _marker = Time.unscaledTime;
+
+            if (PollSettings.ChoicesInChat)
+            {
+                SendChoicesToChat();
+            }
         }
 
         public override void GameComponentOnGUI()
@@ -163,6 +168,22 @@ namespace SirRandoo.ToolkitPolls
         public void Schedule(IPoll poll)
         {
             _pendingPolls.Enqueue(poll);
+        }
+
+        private void SendChoicesToChat()
+        {
+            if (!TwitchWrapper.Client?.IsConnected ?? true)
+            {
+                return;
+            }
+
+            TwitchWrapper.SendChatMessage(CurrentPoll.Title);
+
+            for (var index = 0; index < CurrentPoll.Choices.Count; index++)
+            {
+                IChoice choice = CurrentPoll.Choices[index];
+                TwitchWrapper.SendChatMessage($"[{index}] {choice.Label}");
+            }
         }
     }
 }

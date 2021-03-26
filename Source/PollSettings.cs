@@ -37,6 +37,7 @@ namespace SirRandoo.ToolkitPolls
         public static bool PollBars = true;
         public static bool TieredVotes = true;
         public static bool LargeText;
+        public static bool ChoicesInChat;
 
         public static int SubscriberWeight = 1;
         public static int VipWeight = 1;
@@ -57,7 +58,7 @@ namespace SirRandoo.ToolkitPolls
         public static void Draw(Rect canvas)
         {
             var listing = new Listing_Standard(GameFont.Small);
-            var viewPort = new Rect(0f, 0f, canvas.width - 16f, Text.SmallFontHeight * 20f);
+            var viewPort = new Rect(0f, 0f, canvas.width - 16f, Text.SmallFontHeight * 23f);
             listing.BeginScrollView(canvas, ref _scrollPosition, ref viewPort);
 
             listing.DrawGroupHeader("ToolkitPolls.SettingGroups.General".TranslateSimple(), false);
@@ -86,6 +87,9 @@ namespace SirRandoo.ToolkitPolls
                 LargeText = proxy;
                 Choice.NotifyScaleChanged();
             }
+
+            listing.CheckboxLabeled("ToolkitPolls.Settings.ChoicesInChat.Label".TranslateSimple(), ref ChoicesInChat);
+            listing.DrawDescription("ToolkitPolls.Settings.ChoicesInChat.Description".TranslateSimple());
 
 
             listing.DrawGroupHeader("ToolkitPolls.SettingGroups.VoteWeights.Label".TranslateSimple());
