@@ -87,13 +87,13 @@ namespace SirRandoo.ToolkitPolls.Models
                 canvas.height - 4f
             );
 
-            if (PollSettings.Colorless)
+            if (!PollSettings.Colorless)
             {
-                Widgets.DrawLightHighlight(region);
+                Texture2D.whiteTexture.DrawColored(region, new Color(0.2f, 0.8f, 0.85f, 0.4f));
             }
             else
             {
-                Texture2D.whiteTexture.DrawColored(region, new Color(0.2f, 0.8f, 0.85f, 0.4f));
+                Widgets.DrawLightHighlight(region);
             }
         }
 
