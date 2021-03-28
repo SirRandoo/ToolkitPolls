@@ -183,7 +183,7 @@ namespace SirRandoo.ToolkitPolls
             for (var index = 0; index < CurrentPoll.Choices.Count; index++)
             {
                 IChoice choice = CurrentPoll.Choices[index];
-                TwitchWrapper.SendChatMessage($"[{index}] {choice.Label}");
+                TwitchWrapper.SendChatMessage($"[{index + 1}] {choice.Label}");
             }
         }
     }
