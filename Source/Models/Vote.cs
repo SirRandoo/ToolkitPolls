@@ -68,7 +68,7 @@ namespace SirRandoo.ToolkitPolls.Models
             return count;
         }
 
-        public int GetTotalVotesTiered()
+        private int GetTotalVotesTiered()
         {
             if (UserTypes.HasFlag(UserType.Moderator))
             {
