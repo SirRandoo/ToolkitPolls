@@ -78,7 +78,7 @@ namespace SirRandoo.ToolkitPolls.Windows
 
             if (_coordinator == null)
             {
-                LogHelper.Warn("Polls can only be processed a save is actively loaded.");
+                LogHelper.Warn("Polls can only be processed when a save is actively loaded.");
                 Close();
             }
 
