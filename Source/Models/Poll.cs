@@ -81,7 +81,7 @@ namespace SirRandoo.ToolkitPolls.Models
 
                 if (PollSettings.PollBars)
                 {
-                    choice.DrawBar(lineRect, choice.Votes.Count / _allVotes);
+                    choice.DrawBar(lineRect, choice.Votes.Sum(v => v.GetTotalVotes()) / _allVotes);
                 }
 
                 SettingsHelper.DrawLabel(numRect, $"[{index + 1f}]", TextAnchor.MiddleCenter, font);
