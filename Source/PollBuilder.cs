@@ -37,6 +37,12 @@ namespace SirRandoo.ToolkitPolls
             _poll = new Poll {Choices = new List<IChoice>()};
         }
 
+        public PollBuilder WithCoverDrawer(Action<Rect> drawer)
+        {
+            _poll.CoverDrawer = drawer;
+            return this;
+        }
+
         public PollBuilder WithTitle(string title)
         {
             _poll.Title = title;

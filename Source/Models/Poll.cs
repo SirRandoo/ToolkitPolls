@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SirRandoo.ToolkitPolls.Helpers;
@@ -32,6 +33,10 @@ namespace SirRandoo.ToolkitPolls.Models
     public class Poll : IPoll
     {
         private float _allVotes;
+        private IChoice _winner;
+
+        public float ResultsTimer { get; set; }
+
         public float Timer { get; set; }
 
         public string Title { get; set; }
@@ -40,9 +45,15 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public List<IChoice> Choices { get; set; }
 
+        public IPoll.PollState State { get; set; }
+
+        public Action<Rect> CoverDrawer { get; set; }
+
+        public float CoverTimer { get; set; }
+
         public void ProcessVote(Vote vote)
         {
-            if (vote.Choice <= 0 || vote.Choice > Choices.Count)
+            if (vote.Choice <= 0 || vote.Choice > Choices.Count || State == IPoll.PollState.Results)
             {
                 return;
             }
@@ -60,7 +71,7 @@ namespace SirRandoo.ToolkitPolls.Models
             _allVotes = Choices.Sum(c => c.Votes.Sum(v => v.GetTotalVotes()));
         }
 
-        public void Draw(Rect canvas)
+        public void DrawPoll(Rect canvas)
         {
             GameFont font = PollSettings.GetTextScale();
             var listing = new Listing_Standard(font);
@@ -90,6 +101,53 @@ namespace SirRandoo.ToolkitPolls.Models
 
             listing.End();
             Text.Font = GameFont.Small;
+        }
+
+        public void DrawCover(Rect canvas)
+        {
+            GUI.BeginGroup(canvas);
+            CoverDrawer?.Invoke(canvas.AtZero());
+            GUI.EndGroup();
+        }
+
+        public void DrawResults(Rect canvas)
+        {
+            GameFont font = PollSettings.GetTextScale();
+            var listing = new Listing_Standard(font);
+
+            listing.Begin(canvas);
+
+            for (var index = 0; index < Choices.Count; index++)
+            {
+                IChoice choice = Choices[index];
+                Rect lineRect = listing.GetRect(Text.LineHeight);
+                var numRect = new Rect(lineRect.x, lineRect.y, font == GameFont.Medium ? 30f : 25f, lineRect.height);
+                var choiceRect = new Rect(
+                    numRect.x + numRect.width + 2f,
+                    lineRect.y,
+                    lineRect.width - numRect.width - 2f,
+                    lineRect.height
+                );
+
+                if (PollSettings.PollBars && choice == _winner)
+                {
+                    Widgets.DrawHighlightSelected(lineRect);
+                }
+
+                SettingsHelper.DrawLabel(numRect, $"[{index + 1f}]", TextAnchor.MiddleCenter, font);
+                choice.Draw(choiceRect);
+            }
+
+            listing.End();
+            Text.Font = GameFont.Small;
+        }
+
+        public void GetWinningChoice()
+        {
+            int maxVotes = Choices.Where(i => i.OnChosen != null).Max(c => c.Votes.Sum(v => v.GetTotalVotes()));
+            _winner = Choices.Where(i => i.OnChosen != null)
+               .Where(c => c.Votes.Sum(v => v.GetTotalVotes()) == maxVotes)
+               .RandomElement();
         }
 
         public void Conclude()

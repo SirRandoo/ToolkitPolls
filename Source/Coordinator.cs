@@ -96,6 +96,8 @@ namespace SirRandoo.ToolkitPolls
                 return;
             }
 
+            poll.CoverTimer = 10f;
+            poll.ResultsTimer = 10f;
             poll.Timer = PollSettings.Duration;
             CurrentPoll = poll;
             _marker = Time.unscaledTime;
@@ -138,18 +140,49 @@ namespace SirRandoo.ToolkitPolls
 
         private void ProcessCurrentPoll()
         {
-            CurrentPoll.Timer -= Time.unscaledTime - _marker;
-            _marker = Time.unscaledTime;
-
-            if (CurrentPoll.Timer <= 0)
+            switch (CurrentPoll.State)
             {
-                CurrentPoll.Conclude();
-                CurrentPoll = null;
-                _votes.Clear();
-                Find.WindowStack.TryRemove(typeof(PollDialog), false);
-                return;
-            }
+                case IPoll.PollState.Cover:
+                    CurrentPoll.CoverTimer -= Time.unscaledTime - _marker;
+                    _marker = Time.unscaledTime;
+                    ProcessVotes();
 
+                    if (CurrentPoll.CoverDrawer == null || CurrentPoll.CoverTimer <= 0)
+                    {
+                        CurrentPoll.State = IPoll.PollState.Poll;
+                    }
+
+                    break;
+                case IPoll.PollState.Poll:
+                    CurrentPoll.Timer -= Time.unscaledTime - _marker;
+                    _marker = Time.unscaledTime;
+                    ProcessVotes();
+
+                    if (CurrentPoll.Timer <= 0)
+                    {
+                        CurrentPoll.State = IPoll.PollState.Results;
+                        CurrentPoll.GetWinningChoice();
+                    }
+
+                    break;
+                case IPoll.PollState.Results:
+                    CurrentPoll.ResultsTimer -= Time.unscaledTime - _marker;
+                    _marker = Time.unscaledTime;
+
+                    if (CurrentPoll.ResultsTimer <= 0)
+                    {
+                        CurrentPoll.Conclude();
+                        CurrentPoll = null;
+                        _votes.Clear();
+                        Find.WindowStack.TryRemove(typeof(PollDialog), false);
+                    }
+
+                    break;
+            }
+        }
+
+        private void ProcessVotes()
+        {
             while (!_votes.IsEmpty)
             {
                 if (!_votes.TryDequeue(out Vote vote))

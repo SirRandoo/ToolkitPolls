@@ -102,7 +102,7 @@ namespace SirRandoo.ToolkitPolls.Windows
             GUI.BeginGroup(canvas);
 
             GUI.BeginGroup(pollRect);
-            _coordinator.CurrentPoll?.Draw(pollRect.AtZero());
+            _coordinator.CurrentPoll?.DrawPoll(pollRect.AtZero());
             GUI.EndGroup();
 
             GUI.BeginGroup(timerRect);

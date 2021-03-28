@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.Collections.Generic;
 using SirRandoo.ToolkitPolls.Models;
 using UnityEngine;
@@ -28,12 +29,23 @@ namespace SirRandoo.ToolkitPolls.Interfaces
 {
     public interface IPoll
     {
+        enum PollState { Cover, Poll, Results }
+
+        PollState State { get; set; }
+
+        public Action<Rect> CoverDrawer { get; set; }
+        public float CoverTimer { get; set; }
+        public float ResultsTimer { get; set; }
+
         public float Timer { get; set; }
         public string Title { set; get; }
         public string TitleColor { get; set; }
         public List<IChoice> Choices { get; set; }
         public void ProcessVote(Vote vote);
-        public void Draw(Rect canvas);
+        public void DrawPoll(Rect canvas);
+        public void DrawCover(Rect canvas);
+        public void DrawResults(Rect canvas);
+        public void GetWinningChoice();
         public void Conclude();
     }
 }
