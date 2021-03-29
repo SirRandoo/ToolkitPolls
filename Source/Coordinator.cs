@@ -91,7 +91,7 @@ namespace SirRandoo.ToolkitPolls
 
         public override void GameComponentTick()
         {
-            if (_pendingPolls.IsEmpty || !_pendingPolls.TryDequeue(out IPoll poll) || LegacyHelper.HasActivePoll())
+            if (LegacyHelper.HasActivePoll() || _pendingPolls.IsEmpty || !_pendingPolls.TryDequeue(out IPoll poll))
             {
                 return;
             }
