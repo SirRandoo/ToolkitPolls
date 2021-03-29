@@ -125,6 +125,8 @@ namespace SirRandoo.ToolkitPolls
             Scribe_Values.Look(ref Duration, "duration", 300);
             Scribe_Values.Look(ref PollBars, "bars", true);
             Scribe_Values.Look(ref TieredVotes, "tieredVotes", true);
+            Scribe_Values.Look(ref LargeText, "largeText");
+            Scribe_Values.Look(ref ChoicesInChat, "choicesInChat");
 
             Scribe_Values.Look(ref SubscriberWeight, "subscriberWeight", 1);
             Scribe_Values.Look(ref VipWeight, "vipWeight", 1);
