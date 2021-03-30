@@ -77,7 +77,7 @@ namespace SirRandoo.ToolkitPolls.Windows
 
             _coordinator = Current.Game?.GetComponent<Coordinator>();
 
-            if (_coordinator == null)
+            if (_coordinator is null)
             {
                 LogHelper.Warn("Polls can only be processed when a save is actively loaded.");
                 Close();
@@ -168,7 +168,7 @@ namespace SirRandoo.ToolkitPolls.Windows
         {
             base.WindowUpdate();
 
-            if (_coordinator.CurrentPoll?.State is IPoll.PollState.Results
+            if (_coordinator.CurrentPoll?.State == IPoll.PollState.Results
                 && _coordinator.CurrentPoll?.ResultsTimer <= 0)
             {
                 Close();
@@ -185,7 +185,7 @@ namespace SirRandoo.ToolkitPolls.Windows
         {
             base.PostClose();
 
-            if (_coordinator.CurrentPoll != null)
+            if (!(_coordinator.CurrentPoll is null))
             {
                 _coordinator.CurrentPoll.Timer -= PollSettings.PollDuration;
             }

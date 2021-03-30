@@ -47,7 +47,7 @@ namespace SirRandoo.ToolkitPolls
 
         public static bool CanSchedulePoll()
         {
-            return UnityData.IsInMainThread && Current.Game != null;
+            return UnityData.IsInMainThread && !(Current.Game is null);
         }
 
         public static bool SchedulePoll(IPoll poll)
@@ -59,7 +59,7 @@ namespace SirRandoo.ToolkitPolls
 
             var coordinator = Current.Game.GetComponent<Coordinator>();
 
-            if (coordinator == null)
+            if (coordinator is null)
             {
                 return false;
             }

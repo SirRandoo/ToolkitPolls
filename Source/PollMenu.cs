@@ -49,7 +49,7 @@ namespace SirRandoo.ToolkitPolls
                     {
                         IPoll currentPoll = Current.Game?.GetComponent<Coordinator>()?.CurrentPoll;
 
-                        if (currentPoll != null)
+                        if (!(currentPoll is null))
                         {
                             currentPoll.Timer = 0;
                         }

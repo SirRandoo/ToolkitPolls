@@ -36,14 +36,14 @@ namespace SirRandoo.ToolkitPolls.Helpers
         {
             Type type = AccessTools.TypeByName("TwitchToolkit.Votes.VoteHandler");
 
-            if (type == null)
+            if (type is null)
             {
                 return;
             }
 
             FieldInfo field = AccessTools.Field(type, "voteActive");
 
-            if (field == null)
+            if (field is null)
             {
                 return;
             }
@@ -53,12 +53,12 @@ namespace SirRandoo.ToolkitPolls.Helpers
 
         public static bool IsActive()
         {
-            return LegacyPollActive != null;
+            return !(LegacyPollActive is null);
         }
 
         public static bool HasActivePoll()
         {
-            return LegacyPollActive != null && LegacyPollActive();
+            return !(LegacyPollActive is null) && LegacyPollActive();
         }
     }
 }

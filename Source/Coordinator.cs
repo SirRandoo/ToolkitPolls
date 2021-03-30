@@ -52,7 +52,7 @@ namespace SirRandoo.ToolkitPolls
             {
                 _currentPoll = value;
 
-                if (_currentPoll != null && !Find.WindowStack.IsOpen(typeof(PollDialog)))
+                if (!(_currentPoll is null) && !Find.WindowStack.IsOpen(typeof(PollDialog)))
                 {
                     Find.WindowStack.Add(new PollDialog());
                 }
@@ -61,7 +61,7 @@ namespace SirRandoo.ToolkitPolls
 
         public override void ParseMessage(ITwitchMessage twitchMessage)
         {
-            if (CurrentPoll == null)
+            if (CurrentPoll is null)
             {
                 return;
             }
@@ -132,7 +132,7 @@ namespace SirRandoo.ToolkitPolls
                 }
             }
 
-            if (CurrentPoll != null)
+            if (!(CurrentPoll is null))
             {
                 ProcessCurrentPoll();
             }
@@ -147,7 +147,7 @@ namespace SirRandoo.ToolkitPolls
                     _marker = Time.unscaledTime;
                     ProcessVotes();
 
-                    if (CurrentPoll.CoverDrawer == null || CurrentPoll.CoverTimer <= 0)
+                    if (CurrentPoll.CoverDrawer is null || CurrentPoll.CoverTimer <= 0)
                     {
                         CurrentPoll.State = IPoll.PollState.Poll;
                     }
