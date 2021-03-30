@@ -54,6 +54,8 @@ namespace SirRandoo.ToolkitPolls.Models
             }
         }
 
+        public string Tooltip { get; set; }
+
         public Action OnChosen { get; set; }
 
         public List<Vote> Votes { get; set; } = new List<Vote>();
@@ -71,6 +73,11 @@ namespace SirRandoo.ToolkitPolls.Models
 
             SettingsHelper.DrawLabel(labelRect, _label, fontScale: scale);
             SettingsHelper.DrawLabel(voterRect, _totalVotesLabel, fontScale: scale);
+
+            if (!Tooltip.NullOrEmpty())
+            {
+                TooltipHandler.TipRegion(labelRect, Tooltip);
+            }
         }
 
         public void DrawBar(Rect canvas, float percentage)

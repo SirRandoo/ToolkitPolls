@@ -30,6 +30,7 @@ namespace SirRandoo.ToolkitPolls.Interfaces
     public interface IChoice
     {
         public string Label { get; set; }
+        public string Tooltip { get; set; }
         public Action OnChosen { get; set; }
         public List<Vote> Votes { get; set; }
 

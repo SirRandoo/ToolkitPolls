@@ -63,10 +63,19 @@ namespace SirRandoo.ToolkitPolls
 
         public PollBuilder WithChoice(string label, Action onChosen)
         {
-            _poll.Choices.Add(new Choice{Label = label, OnChosen = onChosen});
+            _poll.Choices.Add(new Choice {Label = label, OnChosen = onChosen});
             return this;
         }
 
-        public Poll Build() => _poll;
+        public PollBuilder WithChoice(string label, Action onChosen, string tooltip)
+        {
+            _poll.Choices.Add(new Choice {Label = label, OnChosen = onChosen, Tooltip = tooltip});
+            return this;
+        }
+
+        public Poll Build()
+        {
+            return _poll;
+        }
     }
 }
