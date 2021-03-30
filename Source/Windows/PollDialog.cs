@@ -23,6 +23,7 @@
 using System;
 using System.Linq;
 using SirRandoo.ToolkitPolls.Helpers;
+using SirRandoo.ToolkitPolls.Interfaces;
 using UnityEngine;
 using Verse;
 
@@ -102,11 +103,40 @@ namespace SirRandoo.ToolkitPolls.Windows
             GUI.BeginGroup(canvas);
 
             GUI.BeginGroup(pollRect);
-            _coordinator.CurrentPoll?.DrawPoll(pollRect.AtZero());
+            Rect innerRect = pollRect.AtZero();
+
+            switch (_coordinator.CurrentPoll?.State)
+            {
+                case IPoll.PollState.Cover:
+                    _coordinator.CurrentPoll?.DrawCover(innerRect);
+                    break;
+                case IPoll.PollState.Poll:
+                    _coordinator.CurrentPoll?.DrawPoll(innerRect);
+                    break;
+                case IPoll.PollState.Results:
+                    _coordinator.CurrentPoll?.DrawResults(innerRect);
+                    break;
+            }
+
             GUI.EndGroup();
 
             GUI.BeginGroup(timerRect);
-            float progress = (_coordinator.CurrentPoll?.Timer ?? 0f) / PollSettings.Duration;
+
+            var progress = 0f;
+
+            switch (_coordinator.CurrentPoll?.State)
+            {
+                case IPoll.PollState.Cover:
+                    progress = (float) _coordinator.CurrentPoll?.CoverTimer / PollSettings.CoverDuration;
+                    break;
+                case IPoll.PollState.Poll:
+                    progress = (float) _coordinator.CurrentPoll?.Timer / PollSettings.PollDuration;
+                    break;
+                case IPoll.PollState.Results:
+                    progress = (float) _coordinator.CurrentPoll?.ResultsTimer / PollSettings.ResultsDuration;
+                    break;
+            }
+
             GUI.color = PollSettings.Colorless ? ColorLibrary.Teal : TimerGradient.Evaluate(1f - progress);
             Widgets.FillableBar(timerRect.AtZero(), progress, Texture2D.whiteTexture, null, true);
             GUI.color = Color.white;
@@ -156,7 +186,7 @@ namespace SirRandoo.ToolkitPolls.Windows
 
             if (_coordinator.CurrentPoll != null)
             {
-                _coordinator.CurrentPoll.Timer -= PollSettings.Duration;
+                _coordinator.CurrentPoll.Timer -= PollSettings.PollDuration;
             }
         }
 
