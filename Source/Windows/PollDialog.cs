@@ -149,7 +149,7 @@ namespace SirRandoo.ToolkitPolls.Windows
         {
             GameFont lastFont = Text.Font;
             Text.Font = PollSettings.GetTextScale();
-            
+
             Vector2 initialSize = InitialSize;
             float desiredWidth = _coordinator?.CurrentPoll?.Choices?.Max(c => Text.CalcSize(c.Label).x) ?? 0f;
             float finalWidth = Mathf.Max(initialSize.x, desiredWidth);
@@ -168,7 +168,8 @@ namespace SirRandoo.ToolkitPolls.Windows
         {
             base.WindowUpdate();
 
-            if (_coordinator.CurrentPoll?.Timer <= 0)
+            if (_coordinator.CurrentPoll?.State is IPoll.PollState.Results
+                && _coordinator.CurrentPoll?.ResultsTimer <= 0)
             {
                 Close();
             }
