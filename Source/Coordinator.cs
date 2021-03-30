@@ -96,9 +96,9 @@ namespace SirRandoo.ToolkitPolls
                 return;
             }
 
-            poll.CoverTimer = 10f;
-            poll.ResultsTimer = 10f;
-            poll.Timer = PollSettings.Duration;
+            poll.CoverTimer = poll.CoverDrawer is null ? 0f : PollSettings.CoverDuration;
+            poll.ResultsTimer = PollSettings.ResultsDuration;
+            poll.Timer = PollSettings.PollDuration;
             CurrentPoll = poll;
             _marker = Time.unscaledTime;
 

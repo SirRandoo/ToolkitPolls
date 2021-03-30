@@ -33,7 +33,9 @@ namespace SirRandoo.ToolkitPolls
     {
         public static bool Colorless;
         public static int MaxChoices = 4;
-        public static int Duration = 300;
+        public static int CoverDuration = 5;
+        public static int PollDuration = 300;
+        public static int ResultsDuration = 5;
         public static bool PollBars = true;
         public static bool TieredVotes = true;
         public static bool LargeText;
@@ -47,18 +49,20 @@ namespace SirRandoo.ToolkitPolls
         internal static float PollDialogX = Mathf.Floor(UI.screenWidth - PollDialog.Width);
         internal static float PollDialogY = Mathf.Floor(UI.screenHeight / 3f);
 
-        private static string _maxChoicesBuffer = "4";
-        private static string _durationBuffer = "300";
-        private static string _subscriberWeightBuffer = "1";
-        private static string _vipWeightBuffer = "1";
-        private static string _founderWeightBuffer = "1";
-        private static string _moderatorWeightBuffer = "1";
+        private static string _maxChoicesBuffer;
+        private static string _coverDurationBuffer;
+        private static string _pollDurationBuffer;
+        private static string _resultsDurationBuffer;
+        private static string _subscriberWeightBuffer;
+        private static string _vipWeightBuffer;
+        private static string _founderWeightBuffer;
+        private static string _moderatorWeightBuffer;
         private static Vector2 _scrollPosition = Vector2.zero;
 
         public static void Draw(Rect canvas)
         {
             var listing = new Listing_Standard(GameFont.Small);
-            var viewPort = new Rect(0f, 0f, canvas.width - 16f, Text.SmallFontHeight * 23f);
+            var viewPort = new Rect(0f, 0f, canvas.width - 16f, Text.SmallFontHeight * 35f);
             listing.BeginScrollView(canvas, ref _scrollPosition, ref viewPort);
 
             listing.DrawGroupHeader("ToolkitPolls.SettingGroups.General".TranslateSimple(), false);
@@ -67,10 +71,20 @@ namespace SirRandoo.ToolkitPolls
             Widgets.TextFieldNumeric(choicesField, ref MaxChoices, ref _maxChoicesBuffer, 2f);
             listing.DrawDescription("ToolkitPolls.Settings.MaxChoices.Description".TranslateSimple());
 
+            (Rect coverLabel, Rect coverField) = listing.GetForm();
+            SettingsHelper.DrawLabel(coverLabel, "ToolkitPolls.Settings.CoverDuration.Label".TranslateSimple());
+            Widgets.TextFieldNumeric(coverField, ref CoverDuration, ref _coverDurationBuffer, 1);
+            listing.DrawDescription("ToolkitPolls.Settings.CoverDuration.Description".TranslateSimple());
+
             (Rect durationLabel, Rect durationField) = listing.GetForm();
-            SettingsHelper.DrawLabel(durationLabel, "ToolkitPolls.Settings.Duration.Label".TranslateSimple());
-            Widgets.TextFieldNumeric(durationField, ref Duration, ref _durationBuffer, 60);
-            listing.DrawDescription("ToolkitPolls.Settings.Duration.Description".TranslateSimple());
+            SettingsHelper.DrawLabel(durationLabel, "ToolkitPolls.Settings.PollDuration.Label".TranslateSimple());
+            Widgets.TextFieldNumeric(durationField, ref PollDuration, ref _pollDurationBuffer, 1);
+            listing.DrawDescription("ToolkitPolls.Settings.PollDuration.Description".TranslateSimple());
+
+            (Rect resultsLabel, Rect resultsField) = listing.GetForm();
+            SettingsHelper.DrawLabel(resultsLabel, "ToolkitPolls.Settings.ResultsDuration.Label".TranslateSimple());
+            Widgets.TextFieldNumeric(resultsField, ref ResultsDuration, ref _resultsDurationBuffer, 1);
+            listing.DrawDescription("ToolkitPolls.Settings.ResultsDuration.Description".TranslateSimple());
 
             listing.CheckboxLabeled("ToolkitPolls.Settings.Colorless.Label".TranslateSimple(), ref Colorless);
             listing.DrawDescription("ToolkitPolls.Settings.Colorless.Description".TranslateSimple());
@@ -122,7 +136,9 @@ namespace SirRandoo.ToolkitPolls
         {
             Scribe_Values.Look(ref Colorless, "colorless");
             Scribe_Values.Look(ref MaxChoices, "choices", 4);
-            Scribe_Values.Look(ref Duration, "duration", 300);
+            Scribe_Values.Look(ref CoverDuration, "coverDuration", 5);
+            Scribe_Values.Look(ref PollDuration, "duration", 300);
+            Scribe_Values.Look(ref ResultsDuration, "resultsDuration", 5);
             Scribe_Values.Look(ref PollBars, "bars", true);
             Scribe_Values.Look(ref TieredVotes, "tieredVotes", true);
             Scribe_Values.Look(ref LargeText, "largeText");

@@ -5,8 +5,14 @@
     <ToolkitPolls.Settings.MaxChoices.Label>Maxmimum number of choices</ToolkitPolls.Settings.MaxChoices.Label>
     <ToolkitPolls.Settings.MaxChoices.Description>The maximum number of choices a poll can have at any given point. While this setting affects most polls, addons can explicitly exceed this limit.</ToolkitPolls.Settings.MaxChoices.Description>
     
-    <ToolkitPolls.Settings.Duration.Label>Duration</ToolkitPolls.Settings.Duration.Label>
-    <ToolkitPolls.Settings.Duration.Description>The maximum number of seconds a poll will run for. While there is no limit to the amount of seconds you can put in this field, it's advised to keep it within reason.</ToolkitPolls.Settings.Duration.Description>
+    <ToolkitPolls.Settings.CoverDuration.Label>Cover duration</ToolkitPolls.Settings.CoverDuration.Label>
+    <ToolkitPolls.Settings.CoverDuration.Description>The maximum number of seconds a poll's cover, the screen prior to the actual poll, will run for. While there is no limit to the amount of seeconds you can put in this field, it's advised to keep it within reason.</ToolkitPolls.Settings.CoverDuration.Description>
+    
+    <ToolkitPolls.Settings.PollDuration.Label>Duration</ToolkitPolls.Settings.PollDuration.Label>
+    <ToolkitPolls.Settings.PollDuration.Description>The maximum number of seconds a poll will run for. While there is no limit to the amount of seconds you can put in this field, it's advised to keep it within reason.</ToolkitPolls.Settings.PollDuration.Description>
+    
+    <ToolkitPolls.Settings.ResultsDuration.Label>Results duration</ToolkitPolls.Settings.ResultsDuration.Label>
+    <ToolkitPolls.Settings.ResultsDuration.Description>The maximum number of seconds a poll's results, the screen after the actual poll, will run for. While there is no limit to the amount of seconds you can put in this field, it's advised to keep it within reason.</ToolkitPolls.Settings.ResultsDuration.Description>
     
     <ToolkitPolls.Settings.Colorless.Label>Colorless polls</ToolkitPolls.Settings.Colorless.Label>
     <ToolkitPolls.Settings.Colorless.Description>Whether or not the poll dialogs will use colors. Currently, this setting disables colored titles, colored poll bars, and the rainbow timer bar.</ToolkitPolls.Settings.Colorless.Description>
