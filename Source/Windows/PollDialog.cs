@@ -86,6 +86,7 @@ namespace SirRandoo.ToolkitPolls.Windows
             optionalTitle = _coordinator.CurrentPoll.TitleColor.NullOrEmpty() || PollSettings.Colorless
                 ? _coordinator.CurrentPoll?.Title
                 : _coordinator.CurrentPoll?.Title.ColorTagged(_coordinator.CurrentPoll.TitleColor);
+            optionalTitle = optionalTitle.Tagged("b");
 
             SetInitialSizeAndPosition();
         }
