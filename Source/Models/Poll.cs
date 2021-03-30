@@ -95,7 +95,7 @@ namespace SirRandoo.ToolkitPolls.Models
                     choice.DrawBar(lineRect, choice.Votes.Sum(v => v.GetTotalVotes()) / _allVotes);
                 }
 
-                SettingsHelper.DrawLabel(numRect, $"[{index + 1f}]", TextAnchor.MiddleCenter, font);
+                SettingsHelper.DrawLabel(numRect, $"<b>#{index + 1f}</b>", TextAnchor.MiddleCenter, font);
                 choice.Draw(choiceRect);
             }
 
