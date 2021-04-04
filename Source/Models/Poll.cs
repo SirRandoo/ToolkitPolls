@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using SirRandoo.ToolkitPolls.Helpers;
 using SirRandoo.ToolkitPolls.Interfaces;
 using UnityEngine;
@@ -51,7 +52,7 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public float CoverTimer { get; set; }
 
-        public void ProcessVote(Vote vote)
+        public void ProcessVote([NotNull] Vote vote)
         {
             if (vote.Choice <= 0 || vote.Choice > Choices.Count || State == IPoll.PollState.Results)
             {
