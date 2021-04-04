@@ -40,6 +40,7 @@ namespace SirRandoo.ToolkitPolls
     public class Coordinator : TwitchInterfaceBase
     {
         private readonly ConcurrentQueue<IPoll> _pendingPolls = new ConcurrentQueue<IPoll>();
+        private readonly ConcurrentQueue<PollSetupBuilder> _setupBuilders = new ConcurrentQueue<PollSetupBuilder>();
         private readonly ConcurrentQueue<Vote> _votes = new ConcurrentQueue<Vote>();
         private IPoll _currentPoll;
         private float _marker;
@@ -91,6 +92,16 @@ namespace SirRandoo.ToolkitPolls
 
         public override void GameComponentTick()
         {
+            while (!_setupBuilders.IsEmpty)
+            {
+                if (!_setupBuilders.TryDequeue(out PollSetupBuilder builder))
+                {
+                    break;
+                }
+
+                _pendingPolls.Enqueue(builder.Build());
+            }
+            
             if (LegacyHelper.HasActivePoll() || _pendingPolls.IsEmpty || !_pendingPolls.TryDequeue(out IPoll poll))
             {
                 return;

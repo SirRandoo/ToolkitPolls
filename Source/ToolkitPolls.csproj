@@ -50,6 +50,7 @@
     <Compile Include="PollMenu.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="PollSettings.cs" />
+    <Compile Include="PollSetupBuilder.cs" />
     <Compile Include="Textures.cs" />
     <Compile Include="ToolkitPolls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
