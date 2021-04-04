@@ -134,7 +134,7 @@ namespace SirRandoo.ToolkitPolls.Models
                     Widgets.DrawHighlightSelected(lineRect);
                 }
 
-                SettingsHelper.DrawLabel(numRect, $"[{index + 1f}]", TextAnchor.MiddleCenter, font);
+                SettingsHelper.DrawLabel(numRect, $"#{index + 1f}", TextAnchor.MiddleCenter, font);
                 choice.Draw(choiceRect);
             }
 
