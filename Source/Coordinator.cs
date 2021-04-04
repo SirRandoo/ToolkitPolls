@@ -215,6 +215,11 @@ namespace SirRandoo.ToolkitPolls
             _pendingPolls.Enqueue(poll);
         }
 
+        public void Schedule(PollSetupBuilder builder)
+        {
+            _setupBuilders.Enqueue(builder);
+        }
+
         private void SendChoicesToChat()
         {
             if (!TwitchWrapper.Client?.IsConnected ?? true)

@@ -67,5 +67,23 @@ namespace SirRandoo.ToolkitPolls
             coordinator.Schedule(poll);
             return true;
         }
+
+        public static bool SchedulePoll(PollSetupBuilder builder)
+        {
+            if (Current.Game == null)
+            {
+                return false;
+            }
+
+            var coordinator = Current.Game.GetComponent<Coordinator>();
+
+            if (coordinator is null)
+            {
+                return false;
+            }
+            
+            coordinator.Schedule(builder);
+            return true;
+        }
     }
 }
