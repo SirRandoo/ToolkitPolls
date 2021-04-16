@@ -99,19 +99,39 @@ namespace SirRandoo.ToolkitPolls
                     break;
                 }
 
-                _pendingPolls.Enqueue(builder.Build());
+                try
+                {
+                    _pendingPolls.Enqueue(builder.Build());
+                }
+                catch (Exception e)
+                {
+                    LogHelper.Error(
+                        $"Could not successfully build a poll from the provided builder. Reason: {e.Message}\n\n{e.StackTrace}"
+                    );
+                }
             }
-            
-            if (LegacyHelper.HasActivePoll() || _pendingPolls.IsEmpty || !_pendingPolls.TryDequeue(out IPoll poll))
+
+            if (LegacyHelper.HasActivePoll()
+                || _pendingPolls.IsEmpty
+                || !_pendingPolls.TryDequeue(out IPoll poll)
+                || poll == null)
             {
                 return;
             }
 
-            poll.CoverTimer = poll.CoverDrawer is null ? 0f : PollSettings.CoverDuration;
-            poll.ResultsTimer = PollSettings.ResultsDuration;
-            poll.Timer = PollSettings.PollDuration;
-            CurrentPoll = poll;
-            _marker = Time.unscaledTime;
+            try
+            {
+                poll.CoverTimer = poll.CoverDrawer is null ? 0f : PollSettings.CoverDuration;
+                poll.ResultsTimer = PollSettings.ResultsDuration;
+                poll.Timer = PollSettings.PollDuration;
+                CurrentPoll = poll;
+                _marker = Time.unscaledTime;
+            }
+            catch (Exception e)
+            {
+                LogHelper.Error($"Could not successfully setup the next poll. Reason: {e.Message}\n\n{e.StackTrace}");
+                CurrentPoll = null;
+            }
 
             if (PollSettings.ChoicesInChat)
             {
