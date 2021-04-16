@@ -40,6 +40,7 @@ namespace SirRandoo.ToolkitPolls.Models
         private int _totalVotes;
         private string _totalVotesLabel;
         private float _totalVotesWidth;
+        private GameFont? _scale;
 
         public string Label
         {
@@ -69,10 +70,10 @@ namespace SirRandoo.ToolkitPolls.Models
                 _totalVotesWidth,
                 canvas.height
             );
-            GameFont scale = PollSettings.GetTextScale();
+            _scale ??= PollSettings.GetTextScale();
 
-            SettingsHelper.DrawLabel(labelRect, _label, fontScale: scale);
-            SettingsHelper.DrawLabel(voterRect, _totalVotesLabel, fontScale: scale);
+            SettingsHelper.DrawLabel(labelRect, _label, fontScale: _scale.Value);
+            SettingsHelper.DrawLabel(voterRect, _totalVotesLabel, fontScale: _scale.Value);
 
             if (!Tooltip.NullOrEmpty())
             {
