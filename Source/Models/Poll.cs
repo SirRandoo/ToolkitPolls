@@ -35,6 +35,7 @@ namespace SirRandoo.ToolkitPolls.Models
     {
         private float _allVotes;
         private IChoice _winner;
+        private GameFont? _font;
 
         public float ResultsTimer { get; set; }
 
@@ -74,8 +75,8 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public void DrawPoll(Rect canvas)
         {
-            GameFont font = PollSettings.GetTextScale();
-            var listing = new Listing_Standard(font);
+            _font ??= PollSettings.GetTextScale();
+            var listing = new Listing_Standard(_font.Value);
 
             listing.Begin(canvas);
 
@@ -83,7 +84,7 @@ namespace SirRandoo.ToolkitPolls.Models
             {
                 IChoice choice = Choices[index];
                 Rect lineRect = listing.GetRect(Text.LineHeight);
-                var numRect = new Rect(lineRect.x, lineRect.y, font == GameFont.Medium ? 30f : 25f, lineRect.height);
+                var numRect = new Rect(lineRect.x, lineRect.y, _font == GameFont.Medium ? 30f : 25f, lineRect.height);
                 var choiceRect = new Rect(
                     numRect.x + numRect.width + 2f,
                     lineRect.y,
@@ -96,7 +97,7 @@ namespace SirRandoo.ToolkitPolls.Models
                     choice.DrawBar(lineRect, choice.Votes.Sum(v => v.GetTotalVotes()) / _allVotes);
                 }
 
-                SettingsHelper.DrawLabel(numRect, $"<b>#{index + 1f}</b>", TextAnchor.MiddleCenter, font);
+                SettingsHelper.DrawLabel(numRect, $"<b>#{index + 1f}</b>", TextAnchor.MiddleCenter, _font.Value);
                 choice.Draw(choiceRect);
             }
 
@@ -113,8 +114,8 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public void DrawResults(Rect canvas)
         {
-            GameFont font = PollSettings.GetTextScale();
-            var listing = new Listing_Standard(font);
+            _font ??= PollSettings.GetTextScale();
+            var listing = new Listing_Standard(_font.Value);
 
             listing.Begin(canvas);
 
@@ -122,7 +123,7 @@ namespace SirRandoo.ToolkitPolls.Models
             {
                 IChoice choice = Choices[index];
                 Rect lineRect = listing.GetRect(Text.LineHeight);
-                var numRect = new Rect(lineRect.x, lineRect.y, font == GameFont.Medium ? 30f : 25f, lineRect.height);
+                var numRect = new Rect(lineRect.x, lineRect.y, _font.Value == GameFont.Medium ? 30f : 25f, lineRect.height);
                 var choiceRect = new Rect(
                     numRect.x + numRect.width + 2f,
                     lineRect.y,
@@ -135,7 +136,7 @@ namespace SirRandoo.ToolkitPolls.Models
                     Widgets.DrawHighlightSelected(lineRect);
                 }
 
-                SettingsHelper.DrawLabel(numRect, $"#{index + 1f}", TextAnchor.MiddleCenter, font);
+                SettingsHelper.DrawLabel(numRect, $"#{index + 1f}", TextAnchor.MiddleCenter, _font.Value);
                 choice.Draw(choiceRect);
             }
 
