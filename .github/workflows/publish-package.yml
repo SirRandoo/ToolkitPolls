@@ -22,15 +22,3 @@ jobs:
           filename: SirRandoo.ToolkitPolls
           api-key: ${{ secrets.GITHUB_TOKEN }}
           repo-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-      
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
