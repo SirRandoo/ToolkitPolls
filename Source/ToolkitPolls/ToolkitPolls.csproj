@@ -38,7 +38,7 @@
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
-        <OutputPath>..\1.2\Assemblies\</OutputPath>
+        <OutputPath>..\..\1.2\Assemblies\</OutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '1.2 debug|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
@@ -47,7 +47,7 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
-        <OutputPath>..\1.2\Assemblies\</OutputPath>
+        <OutputPath>..\..\1.2\Assemblies\</OutputPath>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />
@@ -85,16 +85,16 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <Content Include="..\About\About.xml">
+        <Content Include="..\..\About\About.xml">
             <Link>About\About.xml</Link>
         </Content>
-        <Content Include="..\Common\Defs\AddonMenu.xml">
+        <Content Include="..\..\Common\Defs\AddonMenu.xml">
             <Link>Common\Defs\AddonMenu.xml</Link>
         </Content>
-        <Content Include="..\Common\Languages\English\Keyed\AddonMenu.xml">
+        <Content Include="..\..\Common\Languages\English\Keyed\AddonMenu.xml">
             <Link>Common\Languages\English\Keyed\AddonMenu.xml</Link>
         </Content>
-        <Content Include="..\Common\Languages\English\Keyed\Settings.xml">
+        <Content Include="..\..\Common\Languages\English\Keyed\Settings.xml">
             <Link>Common\Languages\English\Keyed\Settings.xml</Link>
         </Content>
     </ItemGroup>
