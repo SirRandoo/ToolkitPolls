@@ -77,9 +77,9 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="HodlHodl.Rimworld.Toolkit.Core" Version="1.2.0" ExcludeAssets="runtime" />
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.2.2900" ExcludeAssets="runtime" />
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.2.2905" ExcludeAssets="runtime" />
         <PackageReference Include="Lib.Harmony" Version="2.0.4" ExcludeAssets="runtime" />
-        <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.9.1">
+        <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.10.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
