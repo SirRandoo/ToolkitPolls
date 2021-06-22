@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using SirRandoo.ToolkitPolls.Interfaces;
 using SirRandoo.ToolkitPolls.Models;
 using UnityEngine;
@@ -30,52 +31,58 @@ namespace SirRandoo.ToolkitPolls
 {
     public class PollBuilder
     {
-        private readonly Poll _poll;
+        protected Poll Poll;
 
         public PollBuilder()
         {
-            _poll = new Poll {Choices = new List<IChoice>()};
+            Poll = new Poll {Choices = new List<IChoice>()};
         }
 
+        [NotNull]
         public PollBuilder WithCoverDrawer(Action<Rect> drawer)
         {
-            _poll.CoverDrawer = drawer;
+            Poll.CoverDrawer = drawer;
             return this;
         }
 
+        [NotNull]
         public PollBuilder WithTitle(string title)
         {
-            _poll.Title = title;
+            Poll.Title = title;
             return this;
         }
 
-        public PollBuilder WithTitle(string title, string color)
+        [NotNull]
+        public PollBuilder WithTitle(string title, [NotNull] string color)
         {
-            _poll.TitleColor = color.StartsWith("#") ? color : $"#{color}";
-            _poll.Title = title;
+            Poll.TitleColor = color.StartsWith("#") ? color : $"#{color}";
+            Poll.Title = title;
             return this;
         }
 
+        [NotNull]
         public PollBuilder WithTitle(string title, Color color)
         {
             return WithTitle(title, ColorUtility.ToHtmlStringRGB(color));
         }
 
+        [NotNull]
         public PollBuilder WithChoice(string label, Action onChosen)
         {
-            _poll.Choices.Add(new Choice {Label = label, OnChosen = onChosen});
+            Poll.Choices.Add(new Choice {Label = label, OnChosen = onChosen});
             return this;
         }
 
+        [NotNull]
         public PollBuilder WithChoice(string label, Action onChosen, string tooltip)
         {
-            _poll.Choices.Add(new Choice {Label = label, OnChosen = onChosen, Tooltip = tooltip});
+            Poll.Choices.Add(new Choice {Label = label, OnChosen = onChosen, Tooltip = tooltip});
             return this;
         }
 
         public Poll Build()
         {
-            return _poll;
+            return Poll;
         }
     }
 }

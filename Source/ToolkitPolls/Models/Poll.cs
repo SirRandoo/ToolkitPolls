@@ -73,7 +73,7 @@ namespace SirRandoo.ToolkitPolls.Models
             _allVotes = Choices.Sum(c => c.Votes.Sum(v => v.GetTotalVotes()));
         }
 
-        public void DrawPoll(Rect canvas)
+        public virtual void DrawPoll(Rect canvas)
         {
             _font ??= PollSettings.GetTextScale();
             var listing = new Listing_Standard(_font.Value);
@@ -152,7 +152,7 @@ namespace SirRandoo.ToolkitPolls.Models
                .RandomElement();
         }
 
-        public void Conclude()
+        public virtual void Conclude()
         {
             int maxVotes = Choices.Max(c => c.Votes.Sum(v => v.GetTotalVotes()));
             IChoice winner = Choices.Where(c => c.Votes.Sum(v => v.GetTotalVotes()) == maxVotes).RandomElement();

@@ -57,7 +57,6 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Coordinator.cs" />
-        <Compile Include="Helpers\LegacyHelper.cs" />
         <Compile Include="Helpers\LogHelper.cs" />
         <Compile Include="Helpers\MessageHelper.cs" />
         <Compile Include="Interfaces\IChoice.cs" />

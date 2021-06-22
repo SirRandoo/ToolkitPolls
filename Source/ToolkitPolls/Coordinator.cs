@@ -111,8 +111,7 @@ namespace SirRandoo.ToolkitPolls
                 }
             }
 
-            if (LegacyHelper.HasActivePoll()
-                || _pendingPolls.IsEmpty
+            if (_pendingPolls.IsEmpty
                 || !_pendingPolls.TryDequeue(out IPoll poll)
                 || poll == null)
             {
@@ -141,28 +140,6 @@ namespace SirRandoo.ToolkitPolls
 
         public override void GameComponentOnGUI()
         {
-            if (LegacyHelper.HasActivePoll())
-            {
-                var container = new List<IPoll>();
-
-                while (!_pendingPolls.IsEmpty)
-                {
-                    if (_pendingPolls.TryDequeue(out IPoll poll))
-                    {
-                        container.Add(poll);
-                    }
-                }
-
-                container.Insert(0, CurrentPoll);
-                CurrentPoll = null;
-                Find.WindowStack.TryRemove(typeof(PollDialog), false);
-
-                foreach (IPoll poll in container)
-                {
-                    _pendingPolls.Enqueue(poll);
-                }
-            }
-
             if (!(CurrentPoll is null))
             {
                 ProcessCurrentPoll();
