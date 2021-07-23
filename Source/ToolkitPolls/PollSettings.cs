@@ -63,7 +63,10 @@ namespace SirRandoo.ToolkitPolls
         {
             var listing = new Listing_Standard(GameFont.Small);
             var viewPort = new Rect(0f, 0f, canvas.width - 16f, Text.SmallFontHeight * 35f);
-            listing.BeginScrollView(canvas, ref _scrollPosition, ref viewPort);
+
+            GUI.BeginGroup(canvas);
+            Widgets.BeginScrollView(canvas.AtZero(), ref _scrollPosition, viewPort);
+            listing.Begin(viewPort);
 
             listing.DrawGroupHeader("ToolkitPolls.SettingGroups.General".TranslateSimple(), false);
             (Rect choicesLabel, Rect choicesField) = listing.GetForm();
@@ -129,7 +132,9 @@ namespace SirRandoo.ToolkitPolls
             listing.CheckboxLabeled("ToolkitPolls.Settings.TieredVotes.Label".TranslateSimple(), ref TieredVotes);
             listing.DrawDescription("ToolkitPolls.Settings.TieredVotes.Description".TranslateSimple());
 
-            listing.EndScrollView(ref viewPort);
+            listing.End();
+            Widgets.EndScrollView();
+            GUI.EndGroup();
         }
 
         public override void ExposeData()
