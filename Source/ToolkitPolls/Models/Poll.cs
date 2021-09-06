@@ -154,10 +154,12 @@ namespace SirRandoo.ToolkitPolls.Models
 
         public virtual void Conclude()
         {
-            int maxVotes = Choices.Max(c => c.Votes.Sum(v => v.GetTotalVotes()));
-            IChoice winner = Choices.Where(c => c.Votes.Sum(v => v.GetTotalVotes()) == maxVotes).RandomElement();
+            if (_winner == null)
+            {
+                GetWinningChoice();
+            }
 
-            winner?.OnChosen?.Invoke();
+            _winner?.OnChosen?.Invoke();
         }
     }
 }
