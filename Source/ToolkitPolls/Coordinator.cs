@@ -111,7 +111,8 @@ namespace SirRandoo.ToolkitPolls
                 }
             }
 
-            if (_pendingPolls.IsEmpty
+            if (_currentPoll != null
+                || _pendingPolls.IsEmpty
                 || !_pendingPolls.TryDequeue(out IPoll poll)
                 || poll == null)
             {
