@@ -32,30 +32,18 @@ namespace SirRandoo.ToolkitPolls
 {
     public class PollSetupBuilder
     {
-        internal class ChoiceBuilder
-        {
-            internal string Label { get; set; }
-            internal string Tooltip { get; set; }
-            internal Action OnChosen { get; set; }
-
-            [NotNull] internal IChoice Build() => new Choice {Label = Label, Tooltip = Tooltip, OnChosen = OnChosen};
-        }
-        
         private readonly List<ChoiceBuilder> _choices = new List<ChoiceBuilder>();
+        private Action<Rect> _coverDelegate;
         private string _title;
         private string _titleColor;
-        private Action<Rect> _coverDelegate;
 
-        [NotNull]
-        public static PollSetupBuilder Create()
-        {
-            return new PollSetupBuilder();
-        }
+        [NotNull] public static PollSetupBuilder Create() => new PollSetupBuilder();
 
         [NotNull]
         public PollSetupBuilder WithTitle(string title)
         {
             _title = title;
+
             return this;
         }
 
@@ -64,6 +52,7 @@ namespace SirRandoo.ToolkitPolls
         {
             _title = title;
             _titleColor = color;
+
             return this;
         }
 
@@ -71,33 +60,38 @@ namespace SirRandoo.ToolkitPolls
         public PollSetupBuilder WithCoverDelegate(Action<Rect> drawer)
         {
             _coverDelegate = drawer;
+
             return this;
         }
 
         [NotNull]
         public PollSetupBuilder WithChoice(string label, Action onChosen)
         {
-            _choices.Add(new ChoiceBuilder {Label = label, OnChosen = onChosen});
+            _choices.Add(new ChoiceBuilder { Label = label, OnChosen = onChosen });
+
             return this;
         }
 
         [NotNull]
         public PollSetupBuilder WithChoice(string label, Action onChosen, string tooltip)
         {
-            _choices.Add(new ChoiceBuilder {Label = label, OnChosen = onChosen, Tooltip = tooltip});
+            _choices.Add(new ChoiceBuilder { Label = label, OnChosen = onChosen, Tooltip = tooltip });
+
             return this;
         }
 
         [NotNull]
         public IPoll Build()
         {
-            return new Poll
-            {
-                Title = _title,
-                TitleColor = _titleColor,
-                CoverDrawer = _coverDelegate,
-                Choices = _choices.Select(i => i.Build()).ToList()
-            };
+            return new Poll { Title = _title, TitleColor = _titleColor, CoverDrawer = _coverDelegate, Choices = _choices.Select(i => i.Build()).ToList() };
+        }
+        internal class ChoiceBuilder
+        {
+            internal string Label { get; set; }
+            internal string Tooltip { get; set; }
+            internal Action OnChosen { get; set; }
+
+            [NotNull] internal IChoice Build() => new Choice { Label = Label, Tooltip = Tooltip, OnChosen = OnChosen };
         }
     }
 }

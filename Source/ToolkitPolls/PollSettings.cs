@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 using System;
-using SirRandoo.ToolkitPolls.Helpers;
+using CommonLib.Helpers;
 using SirRandoo.ToolkitPolls.Models;
 using SirRandoo.ToolkitPolls.Windows;
 using UnityEngine;
@@ -68,24 +68,24 @@ namespace SirRandoo.ToolkitPolls
             Widgets.BeginScrollView(canvas.AtZero(), ref _scrollPosition, viewPort);
             listing.Begin(viewPort);
 
-            listing.DrawGroupHeader("ToolkitPolls.SettingGroups.General".TranslateSimple(), false);
-            (Rect choicesLabel, Rect choicesField) = listing.GetForm();
-            SettingsHelper.DrawLabel(choicesLabel, "ToolkitPolls.Settings.MaxChoices.Label".TranslateSimple());
+            listing.GroupHeader("ToolkitPolls.SettingGroups.General".TranslateSimple(), false);
+            (Rect choicesLabel, Rect choicesField) = listing.Split();
+            UiHelper.Label(choicesLabel, "ToolkitPolls.Settings.MaxChoices.Label".TranslateSimple());
             Widgets.TextFieldNumeric(choicesField, ref MaxChoices, ref _maxChoicesBuffer, 2f);
             listing.DrawDescription("ToolkitPolls.Settings.MaxChoices.Description".TranslateSimple());
 
-            (Rect coverLabel, Rect coverField) = listing.GetForm();
-            SettingsHelper.DrawLabel(coverLabel, "ToolkitPolls.Settings.CoverDuration.Label".TranslateSimple());
+            (Rect coverLabel, Rect coverField) = listing.Split();
+            UiHelper.Label(coverLabel, "ToolkitPolls.Settings.CoverDuration.Label".TranslateSimple());
             Widgets.TextFieldNumeric(coverField, ref CoverDuration, ref _coverDurationBuffer, 1);
             listing.DrawDescription("ToolkitPolls.Settings.CoverDuration.Description".TranslateSimple());
 
-            (Rect durationLabel, Rect durationField) = listing.GetForm();
-            SettingsHelper.DrawLabel(durationLabel, "ToolkitPolls.Settings.PollDuration.Label".TranslateSimple());
+            (Rect durationLabel, Rect durationField) = listing.Split();
+            UiHelper.Label(durationLabel, "ToolkitPolls.Settings.PollDuration.Label".TranslateSimple());
             Widgets.TextFieldNumeric(durationField, ref PollDuration, ref _pollDurationBuffer, 1);
             listing.DrawDescription("ToolkitPolls.Settings.PollDuration.Description".TranslateSimple());
 
-            (Rect resultsLabel, Rect resultsField) = listing.GetForm();
-            SettingsHelper.DrawLabel(resultsLabel, "ToolkitPolls.Settings.ResultsDuration.Label".TranslateSimple());
+            (Rect resultsLabel, Rect resultsField) = listing.Split();
+            UiHelper.Label(resultsLabel, "ToolkitPolls.Settings.ResultsDuration.Label".TranslateSimple());
             Widgets.TextFieldNumeric(resultsField, ref ResultsDuration, ref _resultsDurationBuffer, 1);
             listing.DrawDescription("ToolkitPolls.Settings.ResultsDuration.Description".TranslateSimple());
 
@@ -109,24 +109,24 @@ namespace SirRandoo.ToolkitPolls
             listing.DrawDescription("ToolkitPolls.Settings.ChoicesInChat.Description".TranslateSimple());
 
 
-            listing.DrawGroupHeader("ToolkitPolls.SettingGroups.VoteWeights.Label".TranslateSimple());
+            listing.GroupHeader("ToolkitPolls.SettingGroups.VoteWeights.Label".TranslateSimple());
             listing.DrawDescription("ToolkitPolls.SettingGroups.VoteWeights.Description".TranslateSimple());
             listing.Gap(8f);
 
-            (Rect subscriberLabel, Rect subscriberField) = listing.GetForm();
-            SettingsHelper.DrawLabel(subscriberLabel, "ToolkitPolls.Settings.SubscriberWeight".TranslateSimple());
+            (Rect subscriberLabel, Rect subscriberField) = listing.Split();
+            UiHelper.Label(subscriberLabel, "ToolkitPolls.Settings.SubscriberWeight".TranslateSimple());
             Widgets.TextFieldNumeric(subscriberField, ref SubscriberWeight, ref _subscriberWeightBuffer, 1f);
 
-            (Rect vipLabel, Rect vipField) = listing.GetForm();
-            SettingsHelper.DrawLabel(vipLabel, "ToolkitPolls.Settings.VipWeight".TranslateSimple());
+            (Rect vipLabel, Rect vipField) = listing.Split();
+            UiHelper.Label(vipLabel, "ToolkitPolls.Settings.VipWeight".TranslateSimple());
             Widgets.TextFieldNumeric(vipField, ref VipWeight, ref _vipWeightBuffer, 1f);
 
-            (Rect founderLabel, Rect founderField) = listing.GetForm();
-            SettingsHelper.DrawLabel(founderLabel, "ToolkitPolls.Settings.FounderWeight".TranslateSimple());
+            (Rect founderLabel, Rect founderField) = listing.Split();
+            UiHelper.Label(founderLabel, "ToolkitPolls.Settings.FounderWeight".TranslateSimple());
             Widgets.TextFieldNumeric(founderField, ref FounderWeight, ref _founderWeightBuffer, 1f);
 
-            (Rect moderatorLabel, Rect moderatorField) = listing.GetForm();
-            SettingsHelper.DrawLabel(moderatorLabel, "ToolkitPolls.Settings.ModeratorWeight".TranslateSimple());
+            (Rect moderatorLabel, Rect moderatorField) = listing.Split();
+            UiHelper.Label(moderatorLabel, "ToolkitPolls.Settings.ModeratorWeight".TranslateSimple());
             Widgets.TextFieldNumeric(moderatorField, ref ModeratorWeight, ref _moderatorWeightBuffer, 1f);
 
             listing.CheckboxLabeled("ToolkitPolls.Settings.TieredVotes.Label".TranslateSimple(), ref TieredVotes);
@@ -158,9 +158,6 @@ namespace SirRandoo.ToolkitPolls
             Scribe_Values.Look(ref PollDialogY, "yPosition", Mathf.Floor(UI.screenHeight / 3f));
         }
 
-        internal static GameFont GetTextScale()
-        {
-            return LargeText ? GameFont.Medium : GameFont.Small;
-        }
+        internal static GameFont GetTextScale() => LargeText ? GameFont.Medium : GameFont.Small;
     }
 }

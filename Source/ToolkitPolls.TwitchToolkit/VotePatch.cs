@@ -40,14 +40,11 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
         private static readonly AccessTools.FieldRef<object, Dictionary<int, RaidStrategyDef>> AllRaidStrategies =
             AccessTools.FieldRefAccess<Dictionary<int, RaidStrategyDef>>(typeof(Vote_RaidStrategy), "allStrategies");
 
-        private static readonly AccessTools.FieldRef<object, IncidentParms> RaidParams =
-            AccessTools.FieldRefAccess<IncidentParms>(typeof(Vote_RaidStrategy), "parms");
+        private static readonly AccessTools.FieldRef<object, IncidentParms> RaidParams = AccessTools.FieldRefAccess<IncidentParms>(typeof(Vote_RaidStrategy), "parms");
 
-        private static readonly AccessTools.FieldRef<object, IncidentWorker> RaidWorker =
-            AccessTools.FieldRefAccess<IncidentWorker>(typeof(Vote_RaidStrategy), "worker");
+        private static readonly AccessTools.FieldRef<object, IncidentWorker> RaidWorker = AccessTools.FieldRefAccess<IncidentWorker>(typeof(Vote_RaidStrategy), "worker");
 
-        private static readonly AccessTools.FieldRef<object, string> StrategyTitle =
-            AccessTools.FieldRefAccess<string>(typeof(Vote_RaidStrategy), "title");
+        private static readonly AccessTools.FieldRef<object, string> StrategyTitle = AccessTools.FieldRefAccess<string>(typeof(Vote_RaidStrategy), "title");
 
         private static readonly AccessTools.FieldRef<object, StorytellerComp> RaidUristComp =
             AccessTools.FieldRefAccess<StorytellerComp>(typeof(Vote_RaidStrategy), "comp");
@@ -63,24 +60,31 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
             {
                 case Vote_ToryTalker toryTalker:
                     ProcessVote(toryTalker);
+
                     break;
                 case Vote_HodlBot hodlBot:
                     ProcessVote(hodlBot);
+
                     break;
                 case Vote_VotingIncident incident:
                     ProcessVote(incident);
+
                     break;
                 case Vote_Mercurius mercurius:
                     ProcessVote(mercurius);
+
                     break;
                 case Vote_Milasandra milasandra:
                     ProcessVote(milasandra);
+
                     break;
                 case VoteIncidentDef def:
                     ProcessVote(def);
+
                     break;
                 case Vote_RaidStrategy raidStrategy:
                     ProcessVote(raidStrategy);
+
                     break;
             }
 
@@ -102,23 +106,19 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
                         if (incidentParams == null)
                         {
                             ConcludePoll();
+
                             return;
                         }
 
                         incidentParams.raidStrategy = value;
-                        Ticker.FiringIncidents.Enqueue(
-                            new FiringIncident(
-                                RaidWorker.Invoke(raidStrategy)?.def,
-                                RaidUristComp.Invoke(raidStrategy),
-                                incidentParams
-                            )
-                        );
+                        Ticker.FiringIncidents.Enqueue(new FiringIncident(RaidWorker.Invoke(raidStrategy)?.def, RaidUristComp.Invoke(raidStrategy), incidentParams));
                         ConcludePoll();
                     }
                 );
             }
 
             string title = StrategyTitle.Invoke(raidStrategy);
+
             if (!title.NullOrEmpty())
             {
                 builder.WithTitle(title);
@@ -216,13 +216,10 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
                     milasandra.VoteKeyLabel(key),
                     () =>
                     {
-                        Current.Game.GetComponent<StoryTellerVoteTracker>()
-                          ?.LogStorytellerCompVote(DefDatabase<StorytellerPack>.GetNamed("Milasandra"));
+                        Current.Game.GetComponent<StoryTellerVoteTracker>()?.LogStorytellerCompVote(DefDatabase<StorytellerPack>.GetNamed("Milasandra"));
                         Ticker.FiringIncidents.Enqueue(new FiringIncident(value, milasandra.source, milasandra.parms));
                         Ticker.lastEvent = DateTime.Now;
-                        Messages.Message(
-                            new Message($"Chat votes for: {value.LabelCap}", MessageTypeDefOf.NeutralEvent)
-                        );
+                        Messages.Message(new Message($"Chat votes for: {value.LabelCap}", MessageTypeDefOf.NeutralEvent));
                         ConcludePoll();
                     }
                 );
@@ -246,13 +243,10 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
                     mercurius.VoteKeyLabel(key),
                     () =>
                     {
-                        Current.Game.GetComponent<StoryTellerVoteTracker>()
-                          ?.LogStorytellerCompVote(DefDatabase<StorytellerPack>.GetNamed("Mercurius"));
+                        Current.Game.GetComponent<StoryTellerVoteTracker>()?.LogStorytellerCompVote(DefDatabase<StorytellerPack>.GetNamed("Mercurius"));
                         Ticker.FiringIncidents.Enqueue(new FiringIncident(value, mercurius.source, mercurius.parms));
                         Ticker.lastEvent = DateTime.Now;
-                        Messages.Message(
-                            new Message($"Chat votes for: {value.LabelCap}", MessageTypeDefOf.NeutralEvent)
-                        );
+                        Messages.Message(new Message($"Chat votes for: {value.LabelCap}", MessageTypeDefOf.NeutralEvent));
                         ConcludePoll();
                     }
                 );
@@ -278,9 +272,7 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
                     {
                         Ticker.FiringIncidents.Enqueue(new FiringIncident(value, def.source, def.parms));
                         Ticker.lastEvent = DateTime.Now;
-                        Messages.Message(
-                            new Message($"Chat votes for: {value.LabelCap}", MessageTypeDefOf.NeutralEvent)
-                        );
+                        Messages.Message(new Message($"Chat votes for: {value.LabelCap}", MessageTypeDefOf.NeutralEvent));
                         ConcludePoll();
                     }
                 );

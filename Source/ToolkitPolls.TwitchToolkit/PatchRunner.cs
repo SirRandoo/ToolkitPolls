@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System.Reflection;
+using HarmonyLib;
 using JetBrains.Annotations;
 using Verse;
 
@@ -32,7 +33,7 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
     {
         static PatchRunner()
         {
-            new HarmonyLib.Harmony("com.sirrandoo.tkpolls.ttk").PatchAll(Assembly.GetExecutingAssembly());
+            new Harmony("com.sirrandoo.tkpolls.ttk").PatchAll(Assembly.GetExecutingAssembly());
         }
     }
 }

@@ -23,8 +23,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommonLib.Helpers;
 using JetBrains.Annotations;
-using SirRandoo.ToolkitPolls.Helpers;
 using SirRandoo.ToolkitPolls.Interfaces;
 using UnityEngine;
 using Verse;
@@ -34,8 +34,8 @@ namespace SirRandoo.ToolkitPolls.Models
     public class Poll : IPoll
     {
         private float _allVotes;
-        private IChoice _winner;
         private GameFont? _font;
+        private IChoice _winner;
 
         public float ResultsTimer { get; set; }
 
@@ -62,9 +62,7 @@ namespace SirRandoo.ToolkitPolls.Models
 
             IChoice choice = Choices[vote.Choice - 1];
 
-            foreach (IChoice c in Choices.Where(
-                c => Enumerable.Any(c.Votes, v => v.Viewer.EqualsIgnoreCase(vote.Viewer))
-            ))
+            foreach (IChoice c in Choices.Where(c => Enumerable.Any(c.Votes, v => v.Viewer.EqualsIgnoreCase(vote.Viewer))))
             {
                 c.UnregisterVote(vote.Viewer);
             }
@@ -85,19 +83,14 @@ namespace SirRandoo.ToolkitPolls.Models
                 IChoice choice = Choices[index];
                 Rect lineRect = listing.GetRect(Text.LineHeight);
                 var numRect = new Rect(lineRect.x, lineRect.y, _font == GameFont.Medium ? 30f : 25f, lineRect.height);
-                var choiceRect = new Rect(
-                    numRect.x + numRect.width + 2f,
-                    lineRect.y,
-                    lineRect.width - numRect.width - 2f,
-                    lineRect.height
-                );
+                var choiceRect = new Rect(numRect.x + numRect.width + 2f, lineRect.y, lineRect.width - numRect.width - 2f, lineRect.height);
 
                 if (PollSettings.PollBars)
                 {
                     choice.DrawBar(lineRect, choice.Votes.Sum(v => v.GetTotalVotes()) / _allVotes);
                 }
 
-                SettingsHelper.DrawLabel(numRect, $"<b>#{index + 1f}</b>", TextAnchor.MiddleCenter, _font.Value);
+                UiHelper.Label(numRect, $"<b>#{index + 1f}</b>", TextAnchor.MiddleCenter, _font.Value);
                 choice.Draw(choiceRect);
             }
 
@@ -124,19 +117,14 @@ namespace SirRandoo.ToolkitPolls.Models
                 IChoice choice = Choices[index];
                 Rect lineRect = listing.GetRect(Text.LineHeight);
                 var numRect = new Rect(lineRect.x, lineRect.y, _font.Value == GameFont.Medium ? 30f : 25f, lineRect.height);
-                var choiceRect = new Rect(
-                    numRect.x + numRect.width + 2f,
-                    lineRect.y,
-                    lineRect.width - numRect.width - 2f,
-                    lineRect.height
-                );
+                var choiceRect = new Rect(numRect.x + numRect.width + 2f, lineRect.y, lineRect.width - numRect.width - 2f, lineRect.height);
 
                 if (PollSettings.PollBars && choice == _winner)
                 {
                     Widgets.DrawHighlightSelected(lineRect);
                 }
 
-                SettingsHelper.DrawLabel(numRect, $"#{index + 1f}", TextAnchor.MiddleCenter, _font.Value);
+                UiHelper.Label(numRect, $"#{index + 1f}", TextAnchor.MiddleCenter, _font.Value);
                 choice.Draw(choiceRect);
             }
 
@@ -147,9 +135,7 @@ namespace SirRandoo.ToolkitPolls.Models
         public void GetWinningChoice()
         {
             int maxVotes = Choices.Where(i => i.OnChosen != null).Max(c => c.Votes.Sum(v => v.GetTotalVotes()));
-            _winner = Choices.Where(i => i.OnChosen != null)
-               .Where(c => c.Votes.Sum(v => v.GetTotalVotes()) == maxVotes)
-               .RandomElement();
+            _winner = Choices.Where(i => i.OnChosen != null).Where(c => c.Votes.Sum(v => v.GetTotalVotes()) == maxVotes).RandomElement();
         }
 
         public virtual void Conclude()

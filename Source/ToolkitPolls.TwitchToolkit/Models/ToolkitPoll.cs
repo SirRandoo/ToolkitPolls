@@ -30,8 +30,8 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit.Models
 {
     public class ToolkitPoll : Poll
     {
+        private readonly Vote _vote;
         private bool _signaled;
-        private Vote _vote;
 
         public ToolkitPoll(Vote vote)
         {

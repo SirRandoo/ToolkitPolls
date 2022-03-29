@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using JetBrains.Annotations;
 using SirRandoo.ToolkitPolls.Models;
 using TwitchLib.Client.Models;
 
@@ -27,9 +28,9 @@ namespace SirRandoo.ToolkitPolls.Helpers
 {
     public static class MessageHelper
     {
-        public static UserType GetUserType(this ChatMessage message)
+        public static UserTypes GetUserType([NotNull] this ChatMessage message)
         {
-            var container = UserType.None;
+            var container = UserTypes.None;
 
             foreach ((string key, string _) in message.Badges)
             {
@@ -40,16 +41,20 @@ namespace SirRandoo.ToolkitPolls.Helpers
                     case "moderator":
                     case "global_mod":
                     case "staff":
-                        container |= UserType.Moderator;
+                        container |= UserTypes.Moderator;
+
                         break;
                     case "subscriber":
-                        container |= UserType.Subscriber;
+                        container |= UserTypes.Subscriber;
+
                         break;
                     case "founder":
-                        container |= UserType.Founder;
+                        container |= UserTypes.Founder;
+
                         break;
                     case "vip":
-                        container |= UserType.Vip;
+                        container |= UserTypes.Vip;
+
                         break;
                 }
             }

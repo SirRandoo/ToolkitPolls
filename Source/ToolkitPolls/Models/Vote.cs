@@ -24,43 +24,42 @@ using System;
 
 namespace SirRandoo.ToolkitPolls.Models
 {
-    [Flags] public enum UserType : short { None = 0, Subscriber = 1, Vip = 2, Founder = 4, Moderator = 8 }
+    [Flags]
+    public enum UserTypes : short { None = 0, Subscriber = 1, Vip = 2, Founder = 4, Moderator = 8 }
 
     public class Vote
     {
         public int Choice { get; set; }
         public string Viewer { get; set; }
-        public UserType UserTypes { get; set; }
+        public UserTypes UserTypes { get; set; }
 
-        public int GetTotalVotes()
-        {
-            return PollSettings.TieredVotes ? GetTotalVotesTiered() : GetTotalVotesAdditive();
-        }
+        public int GetTotalVotes() => PollSettings.TieredVotes ? GetTotalVotesTiered() : GetTotalVotesAdditive();
 
         private int GetTotalVotesAdditive()
         {
-            if (UserTypes == UserType.None)
+            if (UserTypes == UserTypes.None)
             {
                 return 1;
             }
 
             var count = 0;
-            if (UserTypes.HasFlag(UserType.Founder))
+
+            if (UserTypes.HasFlag(UserTypes.Founder))
             {
                 count += PollSettings.FounderWeight;
             }
 
-            if (UserTypes.HasFlag(UserType.Vip))
+            if (UserTypes.HasFlag(UserTypes.Vip))
             {
                 count += PollSettings.VipWeight;
             }
 
-            if (UserTypes.HasFlag(UserType.Subscriber))
+            if (UserTypes.HasFlag(UserTypes.Subscriber))
             {
                 count += PollSettings.SubscriberWeight;
             }
 
-            if (UserTypes.HasFlag(UserType.Moderator))
+            if (UserTypes.HasFlag(UserTypes.Moderator))
             {
                 count += PollSettings.ModeratorWeight;
             }
@@ -70,22 +69,22 @@ namespace SirRandoo.ToolkitPolls.Models
 
         private int GetTotalVotesTiered()
         {
-            if (UserTypes.HasFlag(UserType.Moderator))
+            if (UserTypes.HasFlag(UserTypes.Moderator))
             {
                 return PollSettings.ModeratorWeight;
             }
 
-            if (UserTypes.HasFlag(UserType.Vip))
+            if (UserTypes.HasFlag(UserTypes.Vip))
             {
                 return PollSettings.VipWeight;
             }
 
-            if (UserTypes.HasFlag(UserType.Founder))
+            if (UserTypes.HasFlag(UserTypes.Founder))
             {
                 return PollSettings.FounderWeight;
             }
 
-            return UserTypes.HasFlag(UserType.Subscriber) ? PollSettings.SubscriberWeight : 1;
+            return UserTypes.HasFlag(UserTypes.Subscriber) ? PollSettings.SubscriberWeight : 1;
         }
     }
 }

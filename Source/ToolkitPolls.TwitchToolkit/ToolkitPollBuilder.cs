@@ -31,7 +31,7 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
     {
         public ToolkitPollBuilder(Vote vote)
         {
-            Poll = new ToolkitPoll(vote) {Choices = new List<IChoice>()};
+            Poll = new ToolkitPoll(vote) { Choices = new List<IChoice>() };
         }
     }
 }

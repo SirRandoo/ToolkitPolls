@@ -37,9 +37,6 @@ namespace SirRandoo.ToolkitPolls.TwitchToolkit
             yield return AccessTools.Method(typeof(VoteHandler), "CheckForQueuedVotes");
         }
 
-        public static bool Prefix()
-        {
-            return false;
-        }
+        public static bool Prefix() => false;
     }
 }

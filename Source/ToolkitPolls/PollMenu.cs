@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
+using CommonLib.Helpers;
 using JetBrains.Annotations;
-using SirRandoo.ToolkitPolls.Helpers;
 using SirRandoo.ToolkitPolls.Interfaces;
 using ToolkitCore.Interfaces;
 using Verse;
@@ -33,34 +33,23 @@ namespace SirRandoo.ToolkitPolls
     [StaticConstructorOnStartup]
     public class PollAddonMenu : IAddonMenu
     {
-        private static readonly List<FloatMenuOption> Options;
-
-        static PollAddonMenu()
+        private static readonly List<FloatMenuOption> Options = new List<FloatMenuOption>
         {
-            Options = new List<FloatMenuOption>
-            {
-                new FloatMenuOption(
-                    "ToolkitPolls.AddonMenu.Settings".TranslateSimple(),
-                    () => SettingsHelper.OpenSettingsMenuFor(LoadedModManager.GetMod<ToolkitPolls>())
-                ),
-                new FloatMenuOption(
-                    "ToolkitPolls.AddonMenu.ClosePoll".TranslateSimple(),
-                    () =>
+            new FloatMenuOption("ToolkitPolls.AddonMenu.Settings".TranslateSimple(), LoadedModManager.GetMod<ToolkitPolls>().OpenSettings),
+            new FloatMenuOption(
+                "ToolkitPolls.AddonMenu.ClosePoll".TranslateSimple(),
+                () =>
+                {
+                    IPoll currentPoll = Current.Game?.GetComponent<Coordinator>()?.CurrentPoll;
+
+                    if (!(currentPoll is null))
                     {
-                        IPoll currentPoll = Current.Game?.GetComponent<Coordinator>()?.CurrentPoll;
-
-                        if (!(currentPoll is null))
-                        {
-                            currentPoll.Timer = 0;
-                        }
+                        currentPoll.Timer = 0;
                     }
-                )
-            };
-        }
+                }
+            )
+        };
 
-        public List<FloatMenuOption> MenuOptions()
-        {
-            return Options;
-        }
+        public List<FloatMenuOption> MenuOptions() => Options;
     }
 }

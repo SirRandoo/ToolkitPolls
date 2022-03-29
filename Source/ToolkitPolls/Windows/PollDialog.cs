@@ -22,7 +22,7 @@
 
 using System;
 using System.Linq;
-using SirRandoo.ToolkitPolls.Helpers;
+using CommonLib.Helpers;
 using SirRandoo.ToolkitPolls.Interfaces;
 using UnityEngine;
 using Verse;
@@ -37,18 +37,6 @@ namespace SirRandoo.ToolkitPolls.Windows
         private static readonly Gradient TimerGradient;
 
         private Coordinator _coordinator;
-
-        public PollDialog()
-        {
-            doCloseX = true;
-            draggable = true;
-            closeOnCancel = false;
-            closeOnAccept = false;
-            focusWhenOpened = false;
-            closeOnClickedOutside = false;
-            absorbInputAroundWindow = false;
-            preventCameraMotion = false;
-        }
 
         static PollDialog()
         {
@@ -69,6 +57,18 @@ namespace SirRandoo.ToolkitPolls.Windows
             TimerGradient.SetKeys(colorKey, alphaKey);
         }
 
+        public PollDialog()
+        {
+            doCloseX = true;
+            draggable = true;
+            closeOnCancel = false;
+            closeOnAccept = false;
+            focusWhenOpened = false;
+            closeOnClickedOutside = false;
+            absorbInputAroundWindow = false;
+            preventCameraMotion = false;
+        }
+
         public override Vector2 InitialSize => new Vector2(Width, BaseHeight);
 
         public override void PreOpen()
@@ -79,13 +79,14 @@ namespace SirRandoo.ToolkitPolls.Windows
 
             if (_coordinator is null)
             {
-                LogHelper.Warn("Polls can only be processed when a save is actively loaded.");
+                ToolkitPolls.Logger.Warn("Polls can only be processed when a save is actively loaded.");
                 Close();
             }
 
-            optionalTitle = _coordinator.CurrentPoll.TitleColor.NullOrEmpty() || PollSettings.Colorless
+            optionalTitle = string.IsNullOrEmpty(_coordinator.CurrentPoll.TitleColor) || PollSettings.Colorless
                 ? _coordinator.CurrentPoll?.Title
                 : _coordinator.CurrentPoll?.Title.ColorTagged(_coordinator.CurrentPoll.TitleColor);
+
             optionalTitle = optionalTitle.Tagged("b");
 
             SetInitialSizeAndPosition();
@@ -110,12 +111,15 @@ namespace SirRandoo.ToolkitPolls.Windows
             {
                 case IPoll.PollState.Cover:
                     _coordinator.CurrentPoll?.DrawCover(innerRect);
+
                     break;
                 case IPoll.PollState.Poll:
                     _coordinator.CurrentPoll?.DrawPoll(innerRect);
+
                     break;
                 case IPoll.PollState.Results:
                     _coordinator.CurrentPoll?.DrawResults(innerRect);
+
                     break;
             }
 
@@ -128,13 +132,16 @@ namespace SirRandoo.ToolkitPolls.Windows
             switch (_coordinator.CurrentPoll?.State)
             {
                 case IPoll.PollState.Cover:
-                    progress = (float) _coordinator.CurrentPoll?.CoverTimer / PollSettings.CoverDuration;
+                    progress = (float)_coordinator.CurrentPoll?.CoverTimer / PollSettings.CoverDuration;
+
                     break;
                 case IPoll.PollState.Poll:
-                    progress = (float) _coordinator.CurrentPoll?.Timer / PollSettings.PollDuration;
+                    progress = (float)_coordinator.CurrentPoll?.Timer / PollSettings.PollDuration;
+
                     break;
                 case IPoll.PollState.Results:
-                    progress = (float) _coordinator.CurrentPoll?.ResultsTimer / PollSettings.ResultsDuration;
+                    progress = (float)_coordinator.CurrentPoll?.ResultsTimer / PollSettings.ResultsDuration;
+
                     break;
             }
 
@@ -155,6 +162,7 @@ namespace SirRandoo.ToolkitPolls.Windows
             float desiredWidth = _coordinator?.CurrentPoll?.Choices?.Max(c => Text.CalcSize(c.Label).x) ?? 0f;
             float finalWidth = Mathf.Max(initialSize.x, desiredWidth);
             float finalHeight = initialSize.y + Text.LineHeight * (_coordinator?.CurrentPoll?.Choices?.Count ?? 0f);
+
             windowRect = new Rect(
                 Mathf.Clamp(PollSettings.PollDialogX, 0f, UI.screenWidth - finalWidth),
                 Mathf.Clamp(PollSettings.PollDialogY, 0f, UI.screenHeight - finalHeight),
@@ -169,8 +177,7 @@ namespace SirRandoo.ToolkitPolls.Windows
         {
             base.WindowUpdate();
 
-            if (_coordinator.CurrentPoll?.State == IPoll.PollState.Results
-                && _coordinator.CurrentPoll?.ResultsTimer <= 0)
+            if (_coordinator.CurrentPoll?.State == IPoll.PollState.Results && _coordinator.CurrentPoll?.ResultsTimer <= 0)
             {
                 Close();
             }
@@ -194,8 +201,7 @@ namespace SirRandoo.ToolkitPolls.Windows
 
         private void PersistWindowPosition()
         {
-            if (Math.Abs(windowRect.x - PollSettings.PollDialogX) < 0.1f
-                && Math.Abs(windowRect.y - PollSettings.PollDialogY) < 0.1f)
+            if (Math.Abs(windowRect.x - PollSettings.PollDialogX) < 0.1f && Math.Abs(windowRect.y - PollSettings.PollDialogY) < 0.1f)
             {
                 return;
             }

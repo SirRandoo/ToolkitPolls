@@ -35,13 +35,14 @@ namespace SirRandoo.ToolkitPolls
 
         public PollBuilder()
         {
-            Poll = new Poll {Choices = new List<IChoice>()};
+            Poll = new Poll { Choices = new List<IChoice>() };
         }
 
         [NotNull]
         public PollBuilder WithCoverDrawer(Action<Rect> drawer)
         {
             Poll.CoverDrawer = drawer;
+
             return this;
         }
 
@@ -49,6 +50,7 @@ namespace SirRandoo.ToolkitPolls
         public PollBuilder WithTitle(string title)
         {
             Poll.Title = title;
+
             return this;
         }
 
@@ -57,32 +59,28 @@ namespace SirRandoo.ToolkitPolls
         {
             Poll.TitleColor = color.StartsWith("#") ? color : $"#{color}";
             Poll.Title = title;
+
             return this;
         }
 
-        [NotNull]
-        public PollBuilder WithTitle(string title, Color color)
-        {
-            return WithTitle(title, ColorUtility.ToHtmlStringRGB(color));
-        }
+        [NotNull] public PollBuilder WithTitle(string title, Color color) => WithTitle(title, ColorUtility.ToHtmlStringRGB(color));
 
         [NotNull]
         public PollBuilder WithChoice(string label, Action onChosen)
         {
-            Poll.Choices.Add(new Choice {Label = label, OnChosen = onChosen});
+            Poll.Choices.Add(new Choice { Label = label, OnChosen = onChosen });
+
             return this;
         }
 
         [NotNull]
         public PollBuilder WithChoice(string label, Action onChosen, string tooltip)
         {
-            Poll.Choices.Add(new Choice {Label = label, OnChosen = onChosen, Tooltip = tooltip});
+            Poll.Choices.Add(new Choice { Label = label, OnChosen = onChosen, Tooltip = tooltip });
+
             return this;
         }
 
-        public Poll Build()
-        {
-            return Poll;
-        }
+        public Poll Build() => Poll;
     }
 }

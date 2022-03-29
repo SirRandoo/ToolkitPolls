@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using CommonLib.Entities;
+using CommonLib.Interfaces;
 using JetBrains.Annotations;
 using SirRandoo.ToolkitPolls.Interfaces;
 using UnityEngine;
@@ -30,25 +32,22 @@ namespace SirRandoo.ToolkitPolls
     [UsedImplicitly]
     public class ToolkitPolls : Mod
     {
+        private static RimLogger _logger;
         public ToolkitPolls(ModContentPack content) : base(content)
         {
             GetSettings<PollSettings>();
         }
 
-        public override string SettingsCategory()
-        {
-            return nameof(ToolkitPolls);
-        }
+        [NotNull]
+        public static IRimLogger Logger => _logger ??= new RimLogger("ToolkitPolls");
+
+        [NotNull] public override string SettingsCategory() => Content.Name;
 
         public override void DoSettingsWindowContents(Rect canvas)
         {
             PollSettings.Draw(canvas);
         }
-
-        public static bool CanSchedulePoll()
-        {
-            return UnityData.IsInMainThread && !(Current.Game is null);
-        }
+        public static bool CanSchedulePoll() => UnityData.IsInMainThread && !(Current.Game is null);
 
         public static bool SchedulePoll(IPoll poll)
         {
@@ -65,6 +64,7 @@ namespace SirRandoo.ToolkitPolls
             }
 
             coordinator.Schedule(poll);
+
             return true;
         }
 
@@ -81,8 +81,9 @@ namespace SirRandoo.ToolkitPolls
             {
                 return false;
             }
-            
+
             coordinator.Schedule(builder);
+
             return true;
         }
     }

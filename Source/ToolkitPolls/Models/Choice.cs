@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SirRandoo.ToolkitPolls.Helpers;
+using CommonLib.Helpers;
 using SirRandoo.ToolkitPolls.Interfaces;
 using UnityEngine;
 using Verse;
@@ -37,10 +37,10 @@ namespace SirRandoo.ToolkitPolls.Models
         private float _displayPercentage;
         private string _label;
         private float _labelWidth;
+        private GameFont? _scale;
         private int _totalVotes;
         private string _totalVotesLabel;
         private float _totalVotesWidth;
-        private GameFont? _scale;
 
         public string Label
         {
@@ -64,16 +64,11 @@ namespace SirRandoo.ToolkitPolls.Models
         public void Draw(Rect canvas)
         {
             var labelRect = new Rect(canvas.x, canvas.y, _labelWidth, canvas.height);
-            var voterRect = new Rect(
-                canvas.x + canvas.width - _totalVotesWidth,
-                canvas.y,
-                _totalVotesWidth,
-                canvas.height
-            );
+            var voterRect = new Rect(canvas.x + canvas.width - _totalVotesWidth, canvas.y, _totalVotesWidth, canvas.height);
             _scale ??= PollSettings.GetTextScale();
 
-            SettingsHelper.DrawLabel(labelRect, _label, fontScale: _scale.Value);
-            SettingsHelper.DrawLabel(voterRect, _totalVotesLabel, fontScale: _scale.Value);
+            UiHelper.Label(labelRect, _label, fontScale: _scale.Value);
+            UiHelper.Label(voterRect, _totalVotesLabel, fontScale: _scale.Value);
 
             if (!Tooltip.NullOrEmpty())
             {
@@ -88,16 +83,11 @@ namespace SirRandoo.ToolkitPolls.Models
                 _displayPercentage = Mathf.SmoothStep(_displayPercentage, percentage, 0.2f);
             }
 
-            var region = new Rect(
-                canvas.x,
-                canvas.y + 2f,
-                Mathf.FloorToInt(canvas.width * _displayPercentage),
-                canvas.height - 4f
-            );
+            var region = new Rect(canvas.x, canvas.y + 2f, Mathf.FloorToInt(canvas.width * _displayPercentage), canvas.height - 4f);
 
             if (!PollSettings.Colorless)
             {
-                Texture2D.whiteTexture.DrawColored(region, new Color(0.2f, 0.8f, 0.85f, 0.4f));
+                UiHelper.Icon(region, Texture2D.whiteTexture, new Color(0.2f, 0.8f, 0.85f, 0.4f));
             }
             else
             {

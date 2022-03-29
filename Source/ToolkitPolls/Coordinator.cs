@@ -22,7 +22,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using SirRandoo.ToolkitPolls.Helpers;
@@ -44,7 +43,9 @@ namespace SirRandoo.ToolkitPolls
         private readonly ConcurrentQueue<Vote> _votes = new ConcurrentQueue<Vote>();
         private IPoll _currentPoll;
         private float _marker;
-        public Coordinator(Game game) { }
+        public Coordinator(Game game)
+        {
+        }
 
         internal IPoll CurrentPoll
         {
@@ -67,7 +68,7 @@ namespace SirRandoo.ToolkitPolls
                 return;
             }
 
-            string[] segments = twitchMessage.Message.Split(new[] {' '}, 1, StringSplitOptions.RemoveEmptyEntries);
+            string[] segments = twitchMessage.Message.Split(new[] { ' ' }, 1, StringSplitOptions.RemoveEmptyEntries);
             string maybeVote = segments.FirstOrDefault();
 
             if (maybeVote.NullOrEmpty() || !int.TryParse(maybeVote!.TrimStart('#'), out int vote))
@@ -80,14 +81,7 @@ namespace SirRandoo.ToolkitPolls
                 return;
             }
 
-            _votes.Enqueue(
-                new Vote
-                {
-                    Choice = vote,
-                    Viewer = twitchMessage.Username.ToLowerInvariant(),
-                    UserTypes = twitchMessage.ChatMessage.GetUserType()
-                }
-            );
+            _votes.Enqueue(new Vote { Choice = vote, Viewer = twitchMessage.Username.ToLowerInvariant(), UserTypes = twitchMessage.ChatMessage.GetUserType() });
         }
 
         public override void GameComponentTick()
@@ -105,16 +99,11 @@ namespace SirRandoo.ToolkitPolls
                 }
                 catch (Exception e)
                 {
-                    LogHelper.Error(
-                        $"Could not successfully build a poll from the provided builder. Reason: {e.Message}\n\n{e.StackTrace}"
-                    );
+                    ToolkitPolls.Logger.Error("Could not setup a poll from a provided builder", e);
                 }
             }
 
-            if (_currentPoll != null
-                || _pendingPolls.IsEmpty
-                || !_pendingPolls.TryDequeue(out IPoll poll)
-                || poll == null)
+            if (_currentPoll != null || _pendingPolls.IsEmpty || !_pendingPolls.TryDequeue(out IPoll poll) || poll == null)
             {
                 return;
             }
@@ -129,7 +118,7 @@ namespace SirRandoo.ToolkitPolls
             }
             catch (Exception e)
             {
-                LogHelper.Error($"Could not successfully setup the next poll. Reason: {e.Message}\n\n{e.StackTrace}");
+                ToolkitPolls.Logger.Error("Could not set up next poll", e);
                 CurrentPoll = null;
             }
 
