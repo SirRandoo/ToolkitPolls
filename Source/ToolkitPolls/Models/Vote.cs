@@ -24,8 +24,7 @@ using System;
 
 namespace SirRandoo.ToolkitPolls.Models
 {
-    [Flags]
-    public enum UserTypes : short { None = 0, Subscriber = 1, Vip = 2, Founder = 4, Moderator = 8 }
+    [Flags] public enum UserTypes : short { None = 0, Subscriber = 1, Vip = 2, Founder = 4, Moderator = 8 }
 
     public class Vote
     {

@@ -89,10 +89,10 @@
         <Compile Include="Windows\PollDialog.cs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="HodlHodl.Rimworld.Toolkit.Core" Version="1.1.11" ExcludeAssets="runtime" />
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.3287" />
-        <PackageReference Include="Lib.Harmony" Version="2.2.1" ExcludeAssets="runtime" />
-        <PackageReference Include="SirRandoo.CommonLib" Version="1.3.1" />
+        <PackageReference Include="HodlHodl.Rimworld.Toolkit.Core" Version="1.1.11" ExcludeAssets="runtime"/>
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.3326-beta"/>
+        <PackageReference Include="Lib.Harmony" Version="2.2.1" ExcludeAssets="runtime"/>
+        <PackageReference Include="SirRandoo.CommonLib" Version="1.6.7"/>
     </ItemGroup>
     <ItemGroup>
         <Content Include="..\..\About\About.xml">

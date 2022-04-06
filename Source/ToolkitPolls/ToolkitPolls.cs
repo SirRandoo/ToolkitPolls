@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using CommonLib.Entities;
-using CommonLib.Interfaces;
 using JetBrains.Annotations;
+using SirRandoo.CommonLib.Entities;
+using SirRandoo.CommonLib.Interfaces;
 using SirRandoo.ToolkitPolls.Interfaces;
 using UnityEngine;
 using Verse;
@@ -38,8 +38,7 @@ namespace SirRandoo.ToolkitPolls
             GetSettings<PollSettings>();
         }
 
-        [NotNull]
-        public static IRimLogger Logger => _logger ??= new RimLogger("ToolkitPolls");
+        [NotNull] public static IRimLogger Logger => _logger ??= new RimLogger("ToolkitPolls");
 
         [NotNull] public override string SettingsCategory() => Content.Name;
 
