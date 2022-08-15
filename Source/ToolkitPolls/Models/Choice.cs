@@ -67,8 +67,8 @@ namespace SirRandoo.ToolkitPolls.Models
             var voterRect = new Rect(canvas.x + canvas.width - _totalVotesWidth, canvas.y, _totalVotesWidth, canvas.height);
             _scale ??= PollSettings.GetTextScale();
 
-            UiHelper.Label(labelRect, _label, fontScale: _scale.Value);
-            UiHelper.Label(voterRect, _totalVotesLabel, fontScale: _scale.Value);
+            UiHelper.Label(labelRect, _label, TextAnchor.MiddleLeft, _scale.Value);
+            UiHelper.Label(voterRect, _totalVotesLabel, TextAnchor.MiddleLeft, _scale.Value);
 
             if (!Tooltip.NullOrEmpty())
             {
