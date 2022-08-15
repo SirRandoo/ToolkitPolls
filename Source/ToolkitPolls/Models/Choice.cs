@@ -50,7 +50,7 @@ namespace SirRandoo.ToolkitPolls.Models
                 _label = value;
 
                 Text.Font = PollSettings.GetTextScale();
-                _labelWidth = Text.CalcSize(_label).x;
+                _labelWidth = Text.CalcSize(_label).x + 2f;
                 Text.Font = GameFont.Small;
             }
         }
@@ -70,6 +70,8 @@ namespace SirRandoo.ToolkitPolls.Models
             UiHelper.Label(labelRect, _label, TextAnchor.MiddleLeft, _scale.Value);
             UiHelper.Label(voterRect, _totalVotesLabel, TextAnchor.MiddleLeft, _scale.Value);
 
+            Widgets.DrawBox(labelRect);
+
             if (!Tooltip.NullOrEmpty())
             {
                 TooltipHandler.TipRegion(labelRect, Tooltip);
@@ -87,7 +89,9 @@ namespace SirRandoo.ToolkitPolls.Models
 
             if (!PollSettings.Colorless)
             {
-                UiHelper.Icon(region, Texture2D.whiteTexture, new Color(0.2f, 0.8f, 0.85f, 0.4f));
+                GUI.color = new Color(0.2f, 0.8f, 0.85f, 0.4f);
+                GUI.DrawTexture(region, Texture2D.whiteTexture);
+                GUI.color = Color.white;
             }
             else
             {
