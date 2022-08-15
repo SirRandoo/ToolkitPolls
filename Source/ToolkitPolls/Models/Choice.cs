@@ -70,8 +70,6 @@ namespace SirRandoo.ToolkitPolls.Models
             UiHelper.Label(labelRect, _label, TextAnchor.MiddleLeft, _scale.Value);
             UiHelper.Label(voterRect, _totalVotesLabel, TextAnchor.MiddleLeft, _scale.Value);
 
-            Widgets.DrawBox(labelRect);
-
             if (!Tooltip.NullOrEmpty())
             {
                 TooltipHandler.TipRegion(labelRect, Tooltip);
