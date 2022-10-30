@@ -10,6 +10,7 @@ Global
 		1.2 debug|Any CPU = 1.2 debug|Any CPU
 		1.3 debug|Any CPU = 1.3 debug|Any CPU
 		1.3 release|Any CPU = 1.3 release|Any CPU
+		1.4 release|Any CPU = 1.4 release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{348AB5CA-6A76-43C5-9D95-F11F034E6C68}.1.2 release|Any CPU.ActiveCfg = 1.2 release|Any CPU
@@ -20,6 +21,8 @@ Global
 		{348AB5CA-6A76-43C5-9D95-F11F034E6C68}.1.3 debug|Any CPU.Build.0 = 1.3 debug|Any CPU
 		{348AB5CA-6A76-43C5-9D95-F11F034E6C68}.1.3 release|Any CPU.ActiveCfg = 1.3 release|Any CPU
 		{348AB5CA-6A76-43C5-9D95-F11F034E6C68}.1.3 release|Any CPU.Build.0 = 1.3 release|Any CPU
+		{348AB5CA-6A76-43C5-9D95-F11F034E6C68}.1.4 release|Any CPU.ActiveCfg = 1.4 release|Any CPU
+		{348AB5CA-6A76-43C5-9D95-F11F034E6C68}.1.4 release|Any CPU.Build.0 = 1.4 release|Any CPU
 		{3D248D0D-4866-4752-9609-05CABD656906}.1.2 debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D248D0D-4866-4752-9609-05CABD656906}.1.2 debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D248D0D-4866-4752-9609-05CABD656906}.1.2 release|Any CPU.ActiveCfg = Release|Any CPU
@@ -28,5 +31,7 @@ Global
 		{3D248D0D-4866-4752-9609-05CABD656906}.1.3 debug|Any CPU.Build.0 = 1.3 debug|Any CPU
 		{3D248D0D-4866-4752-9609-05CABD656906}.1.3 release|Any CPU.ActiveCfg = 1.3 release|Any CPU
 		{3D248D0D-4866-4752-9609-05CABD656906}.1.3 release|Any CPU.Build.0 = 1.3 release|Any CPU
+		{3D248D0D-4866-4752-9609-05CABD656906}.1.4 release|Any CPU.ActiveCfg = 1.4 release|Any CPU
+		{3D248D0D-4866-4752-9609-05CABD656906}.1.4 release|Any CPU.Build.0 = 1.4 release|Any CPU
 	EndGlobalSection
 EndGlobal
